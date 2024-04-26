@@ -17,6 +17,7 @@ add_executable(WavelengthCalculator utilities/WavelengthCalculator/src/main.cpp 
 add_executable(ShannonsCapacityCalculator utilities/ShannonsCapacityCalculator/src/main.cpp shared/src/utilities.cpp)
 add_executable(OFDMSymbolDurationCalculatorGivenSCS utilities/OFDMSymbolDurationCalculatorGivenSCS/src/main.cpp shared/src/utilities.cpp)
 add_executable(NumOfSubCarriersGivenScsAndBandwidth utilities/NumOfSubCarriersGivenScsAndBandwidth/src/main.cpp shared/src/utilities.cpp)
+add_executable(FFTSizeCalculator utilities/FFTSizeCalculator/src/main.cpp shared/src/utilities.cpp)
 
 # Enable testing with Google Test
 enable_testing()

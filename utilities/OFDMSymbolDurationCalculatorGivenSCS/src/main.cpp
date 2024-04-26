@@ -2,8 +2,7 @@
 #include <iostream>
 
 int main() {
-    // Example usage:
-    double scs = 15000; // 15 kHz SCS
+    double scs;
 
     std::cout << "Enter the SCS in kHz: ";
     std::cin >> scs;

@@ -2,7 +2,6 @@
 #include "utilities.h"
 
 int main() {
-    // Example usage:
     double bandwidth;
     double scs;
 

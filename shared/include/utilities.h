@@ -49,4 +49,16 @@ double calculateOFDMSymbolDuration(double scs);
  */
 int calculateNumberOfSubcarriers(double bandwidth, double scs);
 
+/**
+ * @brief Calculate the FFT size.
+ *
+ * Given the OFDM symbol duration in seconds and the sampling frequency in Hz,
+ * this function calculates and returns the FFT size.
+ *
+ * @param symbolDuration OFDM symbol duration in seconds.
+ * @param samplingFreq Sampling frequency in Hz.
+ * @return The FFT size.
+ */
+int calculateFFTSize(double symbolDuration, double samplingFreq);
+
 #endif // UTILITIES_H

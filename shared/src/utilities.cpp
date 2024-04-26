@@ -36,10 +36,10 @@ int calculateNumberOfSubcarriers(double bandwidth, double scs)
 {
     // Check for valid input values
     if (bandwidth <= 0) {
-        return 0.0;  // Return zero as an error indicator for invalid inputs
+        return 0;  // Return zero as an error indicator for invalid inputs
     }
     if (scs <= 0) {
-        return 0.0;  // Return zero as an error indicator for invalid inputs
+        return 0;  // Return zero as an error indicator for invalid inputs
     }
 
     // Convert SCS from kHz to Hz for calculation
@@ -50,3 +50,20 @@ int calculateNumberOfSubcarriers(double bandwidth, double scs)
 
     return nsc;
 }
+
+int calculateFFTSize(double symbolDuration, double samplingFreq)
+{
+    // Check for valid input values
+    if (symbolDuration <= 0) {
+        return 0;  // Return zero as an error indicator for invalid inputs
+    }
+    if (samplingFreq <= 0) {
+        return 0;  // Return zero as an error indicator for invalid inputs
+    }
+
+    // Calculate the FFT size
+    int fftSize = static_cast<int>(symbolDuration * samplingFreq);
+
+    return fftSize;
+}
+
