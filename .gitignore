@@ -30,6 +30,4 @@
 *.exe
 *.out
 *.app
-WavelengthCalculator
-ShannonsCapacityCalculator
-utilities_test
+build/

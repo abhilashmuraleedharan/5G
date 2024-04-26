@@ -1,91 +1,109 @@
 # 5G Utilities
 
-Welcome to the 5G Utilities repository! This project is designed to provide tools and programs that assist in understanding and optimizing 5G technology. Our utilities are written in C++ and can help you calculate key metrics such as data throughput, spectral efficiency, Shannon's Capacity, and more.
+Welcome to the 5G Utilities repository! This collection of tools assists in understanding and optimizing 5G telecommunications technology. Each utility is designed to perform specific calculations, such as determining data throughput, spectral efficiency, Shannon's Capacity, and more.
 
-## Features
+## Repository Structure
 
-This repository includes utilities for:
-- **Determining Shannon's Capacity**: This utility calculates the maximum theoretical bandwidth of a communication channel under certain conditions based on the bandwidth and signal-to-noise ratio.
+The project is organized into several directories to maintain cleanliness and modularity:
+
+- **/utilities/**: Contains individual directories for each utility.
+- **/shared/**: Contains shared source code and headers used across multiple utilities.
+- **/tests/**: Holds test cases for the utilities, using Google Test for automated testing.
+
+Each utility within the `/utilities/` directory is structured as follows:
+
+```
+/utilities/WavelengthCalculator/
+    ├── src/
+    │   └── main.cpp
+    └── include/
+        └── ... (any additional headers)
+```
 
 ## Getting Started
 
-Follow these steps to clone and run the utilities in this repository:
+To clone and run the utilities in this repository, follow these steps:
 
 ### Prerequisites
 
-You will need:
-- A C++ compiler (GCC recommended)
-- Make (optional, for using the Makefile)
-- CMake (for compiling Google Test)
+- A modern C++ compiler supporting C++11
+- CMake version 3.14 or higher
+- Google Test installed on your system
 
 ### Clone the Repo
 
-First, clone this repository to your local machine:
+Clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/5G.git
+git clone https://github.com/abhilashmuraleedharan/5G.git
 cd 5G
 ```
 
 ### Google Test Setup
 
-This project uses Google Test as a submodule for its automated testing framework. Follow these steps to initialize and prepare Google Test:
+The automated testing framework uses Google Test, which is included as a submodule. To set it up, run:
 
-1. Initialize the Google Test submodule:
-   ```bash
-   git submodule update --init --recursive
-   ```
-
-2. Compile Google Test:
-   ```bash
-   cd googletest
-   mkdir build
-   cd build
-   cmake ..
-   make
-   cd ../../
-   ```
-
-### Build the Utilities
-
-You can build the utilities individually or all at once. 
-
-Here's how to compile them using the Makefile that includes Google Test:
 ```bash
-make all
+git submodule update --init --recursive
 ```
 
-Here's how to compile them individually:
-```bash
-g++ -o WavelengthCalculator main_wavelength.cpp utilities.cpp -lm
-g++ -o ShannonsCapacityCalculator main_shannons_capacity.cpp utilities.cpp -lm
-```
-### Run the Utilities
+### Configure and Build
 
-After building, you can run each utility by executing the corresponding executable. For example:
+From the root directory of the project:
+
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+
+This will generate the executable files for all utilities and place them inside the `build` directory.
+
+### Running the Utilities
+
+After building, you can run the utilities from within the `build` directory. For example:
 
 ```bash
 ./WavelengthCalculator
-./ShannonsCapacityCalculator
 ```
 
-### Run Automated Tests
+Replace `WavelengthCalculator` with the name of the utility you want to run.
 
-To run the automated tests for verifying the functionality of the utilities:
+### Running Automated Tests
+
+To run the automated tests compiled with the utilities, use the following command:
 
 ```bash
 ./utilities_test
 ```
 
+This will execute all tests linked with the Google Test framework.
+
 ## Contributing
 
 We welcome contributions from the community. Here are some ways you can contribute:
+
 - **Reporting bugs**: If you find any issues, please let us know by filing a bug report.
 - **Suggesting enhancements**: Have ideas on how to make these utilities better? Share them with us!
-- **Adding new utilities**: If you have a useful calculation that fits this project, please consider contributing it.
-- **Writing automated test cases**: Help improve the reliability of our utilities by writing automated test cases using Google Test. See the `utilities_test.cpp` file for an example of how to write test cases for the `calculateWavelength` function. This is a great way to ensure that the functions work as expected and remain stable through future changes.
+- **Adding new utilities**: Contribute your own utility by following the steps mentioned in the next section.
+- **Writing automated test cases**: Improve the reliability of our utilities by writing automated test cases in the `/tests/` directory.
 
-To contribute, please fork the repository and use a pull request to submit your changes for review. Ensure you follow the existing code style and add comments where necessary. For more substantial contributions, including new features and utilities, please open an issue to discuss your ideas before beginning work. This helps avoid duplicate efforts and ensures that your contribution fits seamlessly into the project.
+Please follow the existing code style, and provide clear documentation for your contributions. For significant changes, please open an issue to discuss what you would like to change.
+If you have developed a new utility that you'd like to share, please follow these guidelines to ensure it integrates smoothly with the existing structure.
+
+### Adding New Utilities
+
+When contributing new utilities, please ensure you add a corresponding CMake build configuration for your utility and tests in the `CMakeLists.txt` file.
+
+```
+/utilities/
+├── YourNewUtility/
+│   ├── src/
+│   │   └── main_your_new_utility.cpp
+│   └── include/
+│       └── ... (any additional header files)
+```
 
 ## License
 
@@ -95,4 +113,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 If you have any questions or feedback, please file an issue in this repository or contact me directly at `abhilashmuraleedharan@outlook.com`.
 
-Happy Calculating!
+Enjoy the utilities, and happy coding!
