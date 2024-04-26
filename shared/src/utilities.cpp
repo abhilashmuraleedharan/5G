@@ -19,3 +19,15 @@ double calculateShannonsCapacity(double bandwidth, double snr) {
     // Calculate Shannon's Capacity using the formula: C = B * log2(1 + SNR)
     return bandwidth * log2(1 + snr);
 }
+
+double calculateOFDMSymbolDuration(double scs)
+{
+    // The OFDM symbol duration is the inverse of the subcarrier spacing.
+    // 1 Hz is the unit for SCS, which translates to 1 second. 
+    // Since we want the duration in microseconds, we multiply by 1e6.
+    if (scs <= 0) {
+        return 0.0;  // Return zero as an error indicator for invalid inputs
+    }
+
+    return 1.0 / scs * 1e6; // Convert seconds to microseconds
+}
