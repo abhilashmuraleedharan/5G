@@ -82,3 +82,18 @@ double calculateTrafficDensity(double spectralEfficiency, double cellularDensity
 
     return trafficDensity;
 }
+
+double calculateCoherenceTime(double wavelength, double speed) {
+    // Check for valid input values
+    if (wavelength <= 0) {
+        return 0.0;  // Return zero as an error indicator for invalid inputs
+    }
+    if (speed <= 0) {
+        return 0.0;  // Return zero as an error indicator for invalid inputs
+    }
+
+    // Calculate the Coherence Time using the formula Tc = Wavelength / (2 * v)
+    double coherenceTime = wavelength / (2 * speed);
+
+    return coherenceTime;
+}

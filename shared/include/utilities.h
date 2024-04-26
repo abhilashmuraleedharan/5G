@@ -85,4 +85,16 @@ int calculateFFTSize(double symbolDuration, double samplingFreq);
  */
 double calculateTrafficDensity(double spectralEfficiency, double cellularDensity, double bandwidth);
 
+/**
+ * @brief Calculate the Coherence Time (Tc).
+ *
+ * Given the wavelength in meters and the speed of the wireless device in meters per second,
+ * this function calculates the Coherence Time (Tc) in seconds.
+ *
+ * @param wavelength Wavelength in meters.
+ * @param speed Speed of the wireless device in meters per second.
+ * @return Coherence Time (Tc) in seconds.
+ */
+double calculateCoherenceTime(double wavelength, double speed);
+
 #endif // UTILITIES_H
