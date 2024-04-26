@@ -82,12 +82,12 @@ This will execute all tests linked with the Google Test framework.
 
 ## Contributing
 
-We welcome contributions from the community. Here are some ways you can contribute:
+If you're interested in contributing to this project, I welcome your input and support. Here are some ways you can contribute:
 
-- **Reporting bugs**: If you find any issues, please let us know by filing a bug report.
-- **Suggesting enhancements**: Have ideas on how to make these utilities better? Share them with us!
+- **Reporting bugs**: If you find any issues, please let me know by filing a bug report.
+- **Suggesting enhancements**: Have ideas on how to make these utilities better? Please share!
 - **Adding new utilities**: Contribute your own utility by following the steps mentioned in the next section.
-- **Writing automated test cases**: Improve the reliability of our utilities by writing automated test cases in the `/tests/` directory.
+- **Writing automated test cases**: Improve the reliability of the utilities by writing automated test cases in the `/tests/` directory.
 
 Please follow the existing code style, and provide clear documentation for your contributions. For significant changes, please open an issue to discuss what you would like to change.
 If you have developed a new utility that you'd like to share, please follow these guidelines to ensure it integrates smoothly with the existing structure.
@@ -100,7 +100,7 @@ When contributing new utilities, please ensure you add a corresponding CMake bui
 /utilities/
 ├── YourNewUtility/
 │   ├── src/
-│   │   └── main_your_new_utility.cpp
+│   │   └── main.cpp
 │   └── include/
 │       └── ... (any additional header files)
 ```
