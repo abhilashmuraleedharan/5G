@@ -11,6 +11,18 @@ double calculateWavelength(double frequency) {
     return SPEED_OF_LIGHT / frequency;
 }
 
+double calculateFrequencyFromWavelength(double wavelength) {
+    // Check if the wavelength is positive and non-zero
+    if (wavelength <= 0) {
+        return 0.0;  // Return zero as an error indicator for invalid inputs
+    }
+
+    // Calculate the frequency
+    double frequency = SPEED_OF_LIGHT / wavelength;
+
+    return frequency;
+}
+
 double calculateShannonsCapacity(double bandwidth, double snr) {
     // Ensure that the inputs are valid
     if (bandwidth <= 0 || snr < 0) {
@@ -20,8 +32,7 @@ double calculateShannonsCapacity(double bandwidth, double snr) {
     return bandwidth * log2(1 + snr);
 }
 
-double calculateOFDMSymbolDuration(double scs)
-{
+double calculateOFDMSymbolDuration(double scs) {
     // The OFDM symbol duration is the inverse of the subcarrier spacing.
     // 1 Hz is the unit for SCS, which translates to 1 second. 
     // Since we want the duration in microseconds, we multiply by 1e6.
@@ -32,8 +43,7 @@ double calculateOFDMSymbolDuration(double scs)
     return 1.0 / scs * 1e6; // Convert seconds to microseconds
 }
 
-int calculateNumberOfSubcarriers(double bandwidth, double scs)
-{
+int calculateNumberOfSubcarriers(double bandwidth, double scs) {
     // Check for valid input values
     if (bandwidth <= 0) {
         return 0;  // Return zero as an error indicator for invalid inputs
@@ -51,8 +61,7 @@ int calculateNumberOfSubcarriers(double bandwidth, double scs)
     return nsc;
 }
 
-int calculateFFTSize(double symbolDuration, double samplingFreq)
-{
+int calculateFFTSize(double symbolDuration, double samplingFreq) {
     // Check for valid input values
     if (symbolDuration <= 0) {
         return 0;  // Return zero as an error indicator for invalid inputs

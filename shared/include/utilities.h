@@ -17,6 +17,17 @@
 double calculateWavelength(double frequency);
 
 /**
+ * @brief Calculate the frequency from wavelength.
+ *
+ * Given the wavelength in meters, this function calculates the frequency in Hz
+ * using the speed of light (c).
+ *
+ * @param wavelength The wavelength in meters.
+ * @return The frequency in Hz.
+ */
+double calculateFrequencyFromWavelength(double wavelength);
+
+/**
  * Calculates Shannon's Capacity given bandwidth and signal-to-noise ratio.
  * 
  * @param bandwidth The bandwidth in hertz (Hz).
