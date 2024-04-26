@@ -109,3 +109,30 @@ double calculateCoherenceBandwidth(double delaySpread) {
 
     return coherenceBandwidth;
 }
+
+double calculateSlotSize(int n) {
+
+    if (n < 0 && n > 4) {
+        return 0.0;  // Return zero as an error indicator for invalid inputs
+    }
+
+    return 1.0 / std::pow(2, n);
+}
+
+int calculateNumberOfSlots(double slotSize) {
+
+    if (slotSize <= 0) {
+        return 0.0;  // Return zero as an error indicator for invalid inputs
+    }
+
+    return static_cast<int>(1.0 / slotSize);
+}
+
+double calculateSCS(int n) {
+
+    if (n < 0 && n > 4) {
+        return 0.0;  // Return zero as an error indicator for invalid inputs
+    }
+
+    return 15 * std::pow(2, n);
+}

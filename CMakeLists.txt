@@ -22,6 +22,7 @@ add_executable(CalculateFrequencyGivenWavelength utilities/CalculateFrequencyGiv
 add_executable(TrafficDensityCalculator utilities/TrafficDensityCalculator/src/main.cpp shared/src/utilities.cpp)
 add_executable(CoherenceTimeCalculator utilities/CoherenceTimeCalculator/src/main.cpp shared/src/utilities.cpp)
 add_executable(CoherenceBandwidthCalculator utilities/CoherenceBandwidthCalculator/src/main.cpp shared/src/utilities.cpp)
+add_executable(DescribeFrameStructureGivenNumerology utilities/DescribeFrameStructureGivenNumerology/src/main.cpp shared/src/utilities.cpp)
 
 # Enable testing with Google Test
 enable_testing()

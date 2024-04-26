@@ -7,6 +7,8 @@
  */
 
 #include <cmath>
+#include <cmath>
+#include <iomanip>
 
 /**
  * Calculates the wavelength of a signal given its frequency.
@@ -107,5 +109,30 @@ double calculateCoherenceTime(double wavelength, double speed);
  * @return Coherence Bandwidth (Bc) in Hz.
  */
 double calculateCoherenceBandwidth(double delaySpread);
+
+/**
+ * @brief Calculate the slot size given numerology.
+ *
+ * @param n Numerology value.
+ * @return Slot size in milliseconds.
+ */
+double calculateSlotSize(int n);
+
+/**
+ * @brief Calculate the number of slots per subframe.
+ *
+ * A subframe is 1 millisecond long.
+ * @param slotSize Slot size in milliseconds.
+ * @return Number of slots per subframe.
+ */
+int calculateNumberOfSlots(double slotSize);
+
+/**
+ * @brief Calculate the Subcarrier Spacing (SCS) given numerology.
+ *
+ * @param n Numerology value.
+ * @return SCS in Hz.
+ */
+double calculateSCS(int n);
 
 #endif // UTILITIES_H
