@@ -37,4 +37,16 @@ double calculateShannonsCapacity(double bandwidth, double snr);
  */
 double calculateOFDMSymbolDuration(double scs);
 
+/**
+ * @brief Calculate the number of subcarriers (Nsc).
+ *
+ * Given the bandwidth in Hz and the subcarrier spacing (SCS) in kHz, 
+ * this function calculates and returns the number of subcarriers.
+ *
+ * @param bandwidth The system bandwidth in Hz.
+ * @param scs Subcarrier spacing in kHz.
+ * @return The number of subcarriers (Nsc).
+ */
+int calculateNumberOfSubcarriers(double bandwidth, double scs);
+
 #endif // UTILITIES_H

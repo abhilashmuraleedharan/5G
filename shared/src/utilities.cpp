@@ -31,3 +31,22 @@ double calculateOFDMSymbolDuration(double scs)
 
     return 1.0 / scs * 1e6; // Convert seconds to microseconds
 }
+
+int calculateNumberOfSubcarriers(double bandwidth, double scs)
+{
+    // Check for valid input values
+    if (bandwidth <= 0) {
+        return 0.0;  // Return zero as an error indicator for invalid inputs
+    }
+    if (scs <= 0) {
+        return 0.0;  // Return zero as an error indicator for invalid inputs
+    }
+
+    // Convert SCS from kHz to Hz for calculation
+    scs *= 1000; 
+
+    // Calculate the number of subcarriers
+    int nsc = static_cast<int>(bandwidth / scs);
+
+    return nsc;
+}
