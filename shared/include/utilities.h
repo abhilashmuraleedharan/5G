@@ -135,4 +135,18 @@ int calculateNumberOfSlots(double slotSize);
  */
 double calculateSCS(int n);
 
+/**
+ * @brief Describe the QAM Modulation Scheme.
+ *
+ * Given a QAM Modulation Scheme value M, this function calculates and returns the number of bits per QAM symbol (b)
+ * and the scaling factor (sf). The formula for b is log2(M), and for sf, it is 2/3 * (M-1).
+ * The actual scaling factor for power normalization purposes should be calculated as 1/sqrt(sf),
+ * where sf is the scaling factor computed here.
+ *
+ * @param M Modulation order (e.g., 16, 64, 256 for 16-QAM, 64-QAM, 256-QAM).
+ * @param b Reference to a double to store the number of bits per QAM symbol.
+ * @param sf Reference to a double to store the scaling factor.
+ */
+void QamModulationSchemeDescriptor(int M, double& b, double& sf);
+
 #endif // UTILITIES_H

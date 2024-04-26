@@ -136,3 +136,15 @@ double calculateSCS(int n) {
 
     return 15 * std::pow(2, n);
 }
+
+void QamModulationSchemeDescriptor(int M, double& b, double& sf) {
+    if (M <= 1 || (M & (M - 1)) != 0) { // Check if M is a power of 2 and greater than 1
+        // Invalid Modulation order. M must be a power of 2 and greater than 1
+        b = 0; // Resetting values to 0 as error indication
+        sf = 0;
+        return;
+    }
+
+    b = std::log2(M); // Calculate bits per symbol
+    sf = 2.0 / 3.0 * (M - 1); // Calculate the scaling factor
+}
