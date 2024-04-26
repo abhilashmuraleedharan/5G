@@ -97,3 +97,15 @@ double calculateCoherenceTime(double wavelength, double speed) {
 
     return coherenceTime;
 }
+
+double calculateCoherenceBandwidth(double delaySpread) {
+    // Check if the delay spread is positive and non-zero
+    if (delaySpread <= 0) {
+        return 0.0;  // Return zero as an error indicator for invalid inputs
+    }
+
+    // Calculate the Coherence Bandwidth
+    double coherenceBandwidth = 1.0 / delaySpread;
+
+    return coherenceBandwidth;
+}

@@ -97,4 +97,15 @@ double calculateTrafficDensity(double spectralEfficiency, double cellularDensity
  */
 double calculateCoherenceTime(double wavelength, double speed);
 
+/**
+ * @brief Calculate the Coherence Bandwidth (Bc).
+ *
+ * Given the delay spread (Tdel) in seconds, this function calculates the Coherence Bandwidth (Bc) in Hz.
+ * The formula used is Bc = 1/Tdel, assuming the delay spread is given in seconds.
+ *
+ * @param delaySpread Delay spread in seconds.
+ * @return Coherence Bandwidth (Bc) in Hz.
+ */
+double calculateCoherenceBandwidth(double delaySpread);
+
 #endif // UTILITIES_H
