@@ -19,6 +19,7 @@ add_executable(OFDMSymbolDurationCalculatorGivenSCS utilities/OFDMSymbolDuration
 add_executable(NumOfSubCarriersGivenScsAndBandwidth utilities/NumOfSubCarriersGivenScsAndBandwidth/src/main.cpp shared/src/utilities.cpp)
 add_executable(FFTSizeCalculator utilities/FFTSizeCalculator/src/main.cpp shared/src/utilities.cpp)
 add_executable(CalculateFrequencyGivenWavelength utilities/CalculateFrequencyGivenWavelength/src/main.cpp shared/src/utilities.cpp)
+add_executable(TrafficDensityCalculator utilities/TrafficDensityCalculator/src/main.cpp shared/src/utilities.cpp)
 
 # Enable testing with Google Test
 enable_testing()

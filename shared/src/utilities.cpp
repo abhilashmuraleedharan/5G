@@ -76,3 +76,9 @@ int calculateFFTSize(double symbolDuration, double samplingFreq) {
     return fftSize;
 }
 
+double calculateTrafficDensity(double spectralEfficiency, double cellularDensity, double bandwidth) {
+    // Calculate the traffic density GkM
+    double trafficDensity = spectralEfficiency * cellularDensity * bandwidth;
+
+    return trafficDensity;
+}

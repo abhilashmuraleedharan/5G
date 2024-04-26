@@ -72,4 +72,17 @@ int calculateNumberOfSubcarriers(double bandwidth, double scs);
  */
 int calculateFFTSize(double symbolDuration, double samplingFreq);
 
+/**
+ * @brief Calculate the traffic density GkM.
+ *
+ * Given the spectral efficiency, cellular density, and bandwidth, this function calculates
+ * the traffic density (GkM).
+ *
+ * @param spectralEfficiency Spectral efficiency in bits/second/Hz/cell.
+ * @param cellularDensity Cellular density in cells per square kilometer.
+ * @param bandwidth Bandwidth in Hz.
+ * @return Traffic density (GkM) in bits/second/km^2.
+ */
+double calculateTrafficDensity(double spectralEfficiency, double cellularDensity, double bandwidth);
+
 #endif // UTILITIES_H
