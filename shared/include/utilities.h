@@ -12,6 +12,8 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
+#include <string>
+#include <sstream> // For string stream operations
 
 /**
  * Calculates the wavelength of a signal given its frequency.
@@ -167,18 +169,32 @@ void QamModulationSchemeDescriptor(int M, double& b, double& sf);
 double calculateLargeScaleTotalLoss(double pathLoss, double shadowingLoss, double o2iLoss);
 
 /**
+ * @brief Calculate the transmitted power per layer in dBm.
+ *
+ * This function computes the transmitted power per layer based on the total trasnmit power
+ * and number of spatial layers used.
+ * The formula used is:
+ * Tx Power per layer (dBm) = Tx Power (dBm) - 10log10(numOfLayers) (dB)
+ *
+ * @param txPower Total transmitted power in dBm
+ * @param numOfLayers Number of spatial layers
+ * @return Transmitted power per layer in dBm.
+ */
+double calculateTransmittedPowerPerLayer(double txPower, int numOfLayers);
+
+/**
  * @brief Calculate the received power per layer in dBm.
  *
  * This function computes the received power per layer based on the transmitted power per layer,
  * total large-scale losses, and beamforming gain. The formula used is:
  * Rx Power (dBm) = Tx Power (dBm) - Large_Total_Loss (dB) + BF Gain (dB).
  *
- * @param txPower Transmitted power per layer in dBm.
+ * @param txPowerPerLayer Transmitted power per layer in dBm.
  * @param totalLoss Total large-scale loss in dB.
  * @param bfGain Beamforming gain in dB.
  * @return Received power per layer in dBm.
  */
-double calculateReceivedPowerPerLayer(double txPower, double totalLoss, double bfGain);
+double calculateReceivedPowerPerLayer(double txPowerPerLayer, double totalLoss, double bfGain);
 
 /**
  * @brief Calculate the thermal noise power.
@@ -362,5 +378,67 @@ int findTBSForNinfoPrime(int NinfoPrime);
  * @return The TBS size calculated based on the given conditions.
  */
 int calculateTBS(int NinfoPrime, int codeRate);
+
+/**
+ * @brief Calculate total bits per PRB for multiple layers.
+ *
+ * This function calculates the total bits per PRB across multiple layers by adding
+ * TBS size iteratively for each layer.
+ *
+ * @param numLayers The number of layers.
+ * @param tbsSize The TBS size used for each layer.
+ * @return Total bits per PRB across all layers.
+ */
+int calculateTotalBitsPerPrb(int numLayers, int tbsSize);
+
+/**
+ * @brief Calculate the total number of Physical Resource Blocks (PRBs) available.
+ *
+ * This function determines the total number of PRBs available after accounting for
+ * downlink overhead. The formula used is:
+ * totalPRBAvailable = prbCount - ceil(prbCount * downlinkOH)
+ * By default, the downlink overhead is set to 18% per standard unless specified otherwise.
+ *
+ * @param prbCount Total number of PRBs initially available.
+ * @param downlinkOH Downlink overhead as a fraction of total PRBs (default is 0.18 for 18% overhead).
+ * @return Total number of PRBs available after accounting for overhead.
+ */
+int calculateTotalPRBsAvailable(int prbCount, double downlinkOH = 0.18);
+
+/**
+ * @brief Calculate the total number of bits per slot.
+ *
+ * This function computes the total bits that can be transmitted in one slot based on the
+ * number of bits per PRB and the total available PRBs.
+ *
+ * @param bitsPerPRB Number of bits per PRB.
+ * @param totalPRBAvailable Total number of PRBs available.
+ * @return Total number of bits per slot.
+ */
+int calculateBitsPerSlot(int bitsPerPRB, int totalPRBAvailable);
+
+/**
+ * @brief Calculate Downlink Application Throughput.
+ *
+ * This function computes the Downlink Application Throughput based on the DL MAC Throughput and
+ * the ratio of application packet size to MAC packet size. The DL MAC Throughput is given by:
+ * DL MAC Throughput = (bitsPerSlot * DL Fraction) / slot time
+ *
+ * @param bitsPerSlot Number of bits per slot.
+ * @param dlFraction Fraction of downlink time usage.
+ * @param slotTime Duration of a slot in seconds.
+ * @param appPacketSize Application layer packet size in bits.
+ * @param macPacketSize MAC layer packet size in bits.
+ * @return Downlink Application Throughput in bits per second.
+ */
+double calculateDLApplicationThroughput(int bitsPerSlot, double dlFraction, double slotTime, int appPacketSize, int macPacketSize);
+
+/**
+ * @brief Parse a DL:UL ratio string and compute the DL fraction.
+ *
+ * @param ratioStr The DL:UL ratio as a string, e.g., "4:1".
+ * @return The DL fraction as a double.
+ */
+double calculateDLFraction(const std::string& ratioStr);
 
 #endif // UTILITIES_H

@@ -155,10 +155,16 @@ double calculateLargeScaleTotalLoss(double pathLoss, double shadowingLoss, doubl
     return totalLoss;
 }
 
-double calculateReceivedPowerPerLayer(double txPower, double totalLoss, double bfGain) {
+double calculateTransmittedPowerPerLayer(double txPower, int numOfLayers) {
+    // Calculate the transmitted power per layer using the formula provided
+    double txPowerPerLayer = txPower - (10 * std::log10(numOfLayers));
+    return txPowerPerLayer;
+}
+
+double calculateReceivedPowerPerLayer(double txPowerPerLayer, double totalLoss, double bfGain) {
     // Calculate the received power using the formula provided
-    double receivedPower = txPower - totalLoss + bfGain;
-    return receivedPower;
+    double rxPowerPerLayer = txPowerPerLayer - totalLoss + bfGain;
+    return rxPowerPerLayer;
 }
 
 double calculateThermalNoisePower(double temperature, double bandwidth) {
@@ -383,3 +389,45 @@ int calculateTBS(int NinfoPrime, int codeRate) {
     return TBS;
 }
 
+int calculateTotalBitsPerPrb(int numLayers, int tbsSize) {
+    int totalBitsPerPrb = 0;
+    for (int layer = 0; layer < numLayers; ++layer) {
+        totalBitsPerPrb += tbsSize; // Add TBS size for each layer
+    }
+    return totalBitsPerPrb;
+}
+
+int calculateTotalPRBsAvailable(int prbCount, double downlinkOH) {
+    int overhead = std::ceil(prbCount * downlinkOH);
+    int totalPRBAvailable = prbCount - overhead;
+    return totalPRBAvailable;
+}
+
+int calculateBitsPerSlot(int bitsPerPRB, int totalPRBAvailable) {
+    int bitsPerSlot = bitsPerPRB * totalPRBAvailable;
+    return bitsPerSlot;
+}
+
+double calculateDLApplicationThroughput(int bitsPerSlot, double dlFraction, double slotTime, int appPacketSize, int macPacketSize) {
+    // Calculate DL MAC Throughput
+    double dlMacThroughput = (bitsPerSlot * dlFraction) / slotTime;
+
+    // Calculate DL Application Throughput
+    double throughputRatio = static_cast<double>(appPacketSize) / static_cast<double>(macPacketSize);
+    double dlApplicationThroughput = dlMacThroughput * throughputRatio;
+
+    return dlApplicationThroughput;
+}
+
+double calculateDLFraction(const std::string& ratioStr) {
+    std::istringstream iss(ratioStr);
+    int dl, ul;
+    char colon;
+
+    if (!(iss >> dl >> colon >> ul) || colon != ':' || ul == 0) {
+        return -1; // Return an error indicator
+    }
+
+    double totalParts = dl + ul;
+    return dl / totalParts;
+}
