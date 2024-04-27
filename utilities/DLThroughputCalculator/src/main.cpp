@@ -3,7 +3,7 @@
 #include "utilities.h"
 
 int main() {
-    std::cout << "Running Analytical Data Throughput Calculator" << std::endl;
+    std::cout << "\nRunning Analytical Data Throughput Calculator" << std::endl;
     std::cout << "==============================================" << std::endl;
 
     char ip;
@@ -12,13 +12,13 @@ int main() {
     int bandwidthInHz;
     int totalTransmitPower; // in dBm
     double pathLoss; // in dB
+    int prbCount; // sets the total PRBs available to distribute among the UEs.
 
     // Hard Coded Values chosen for this simple DL Throughput calculator
     std::string dl_ul_ratio = "4:1";
     int applicationPacketSize = 1460; // in bytes
     int macPacketSize = 1488; // in bytes
     int numerology = 3;
-    int prbCount = 32; // sets the total PRBs available to distribute among the UEs.
     int prbPerUE = 1;  // set as 1 to calculate the minimum throughput that a UE can expect 
                        // when it is given the minimal resource allocation.
     int numOfSCsPerRB = 12;
@@ -56,7 +56,7 @@ int main() {
             return 1;
     }
 
-    std::cout << "Enter bandwidth of operation in MHz" << std::endl;
+    std::cout << "\nEnter bandwidth of operation in MHz: " << std::endl;
     std::cin >> bandwidth;
     if (!std::cin || bandwidth <= 0) {
         std::cerr << "Error: Please enter a positive number for bandwidth." << std::endl;
@@ -66,7 +66,7 @@ int main() {
         std::cout << "Bandwidth to use for calculation is " << bandwidthInHz << " Hz" << std::endl;
     }
 
-    std::cout << "Enter transmit power in dBm" << std::endl;
+    std::cout << "\nEnter transmit power in dBm: " << std::endl;
     std::cin >> totalTransmitPower;
     if (!std::cin || totalTransmitPower <= 0) {
         std::cerr << "Error: Please enter a positive number for transmit power." << std::endl;
@@ -75,19 +75,27 @@ int main() {
         std::cout << "Transmit Power to use for calculation is " << totalTransmitPower << " dBm" << std::endl;
     }
 
-    std::cout << "Enter pathloss value observed (when experimented in NetSim) using same chosen configurations in dB" << std::endl;
+    std::cout << "\nEnter pathloss value observed (when experimented in NetSim) using same chosen configurations in dB: " << std::endl;
     std::cin >> pathLoss;
     if (!std::cin || pathLoss <= 0) {
         std::cerr << "Error: Please enter a positive number for pathLoss." << std::endl;
         return 1;
     } else {
-        std::cout << "Path Loss to use for calculation is " << pathLoss << " dBm\n" << std::endl;
+        std::cout << "Path Loss to use for calculation is " << pathLoss << " dB\n" << std::endl;
     }
 
-    std::cout << "Displaying the predefined settings in this calculator" << std::endl;
+    std::cout << "\nEnter PRB Count set in gNB: " << std::endl;
+    std::cin >> prbCount;
+    if (!std::cin || prbCount <= 0) {
+        std::cerr << "Error: Please enter a positive number for PRB Count." << std::endl;
+        return 1;
+    } else {
+        std::cout << "PRB Count to use for calculation is " << prbCount << std::endl;
+    }
+
+    std::cout << "\nDisplaying the predefined settings in this calculator" << std::endl;
     std::cout << "=====================================================" << std::endl;
     std::cout << "Numerology: " << numerology << std::endl;
-    std::cout << "PRB Count Set in gNB: " << prbCount << std::endl;
     std::cout << "nPRB: " << prbPerUE << std::endl;
     std::cout << "DL UL Ratio: " << dl_ul_ratio << std::endl;
     std::cout << "Application Packet Size: " << applicationPacketSize << " bytes" << std::endl;
@@ -184,7 +192,7 @@ int main() {
     double slotDuration = calculateSlotSize(numerology);
     std::cout << "Slot Duration: " << slotDuration << std::endl;
     double dlAppThroughput = calculateDLApplicationThroughput(bitsPerSlot, dlFraction, slotDuration, applicationPacketSize, macPacketSize);
-    std::cout << "DL Application Throughput: " << dlAppThroughput << std::endl;
+    std::cout << "DL Application Throughput: " << dlAppThroughput/1000 << " Mbps\n" << std::endl;
 
     return 0;
 }
