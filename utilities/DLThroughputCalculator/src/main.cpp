@@ -172,7 +172,19 @@ int main() {
     int totalPRBAvailable = calculateTotalPRBsAvailable(prbCount); // use default OH value of 0.18
     std::cout << "Total PRB available: " << totalPRBAvailable << std::endl;
 
-    
+    std::cout << "\nStep 14: Calculate Bits per Slot" << std::endl;
+    int bitsPerSlot = calculateBitsPerSlot(totalBitsPerPrb, totalPRBAvailable);
+    std::cout << "Bits per slot is: " << bitsPerSlot << std::endl;
+
+    std::cout << "\nStep 15: Calculate DL Application Throughput" << std::endl;
+    std::cout << "Calculating DL Fraction..." << std::endl;
+    double dlFraction = calculateDLFraction(dl_ul_ratio);
+    std::cout << "DL Fraction: " << dlFraction << std::endl;
+    std::cout << "Calculating slot time..." << std::endl;
+    double slotDuration = calculateSlotSize(numerology);
+    std::cout << "Slot Duration: " << slotDuration << std::endl;
+    double dlAppThroughput = calculateDLApplicationThroughput(bitsPerSlot, dlFraction, slotDuration, applicationPacketSize, macPacketSize);
+    std::cout << "DL Application Throughput: " << dlAppThroughput << std::endl;
 
     return 0;
 }
