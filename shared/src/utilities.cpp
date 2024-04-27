@@ -148,3 +148,238 @@ void QamModulationSchemeDescriptor(int M, double& b, double& sf) {
     b = std::log2(M); // Calculate bits per symbol
     sf = 2.0 / 3.0 * (M - 1); // Calculate the scaling factor
 }
+
+double calculateLargeScaleTotalLoss(double pathLoss, double shadowingLoss, double o2iLoss) {
+    // Calculate total large-scale loss
+    double totalLoss = pathLoss + shadowingLoss + o2iLoss;
+    return totalLoss;
+}
+
+double calculateReceivedPowerPerLayer(double txPower, double totalLoss, double bfGain) {
+    // Calculate the received power using the formula provided
+    double receivedPower = txPower - totalLoss + bfGain;
+    return receivedPower;
+}
+
+double calculateThermalNoisePower(double temperature, double bandwidth) {
+    // Boltzmann's constant in Joules per Kelvin
+    constexpr double boltzmannConstant = 1.38e-23;
+
+    // Calculate the thermal noise power
+    double thermalNoisePower = boltzmannConstant * temperature * bandwidth;
+
+    return thermalNoisePower;
+}
+
+double dBmToWatts(double dBm) {
+    return 1e-3 * std::pow(10, dBm / 10); // Convert dBm to Watts
+}
+
+double calculateSNRLinear(double rxPower_dBm, double thermalNoisePower_Watts) {
+    // Convert received power from dBm to watts
+    double rxPower_Watts = dBmToWatts(rxPower_dBm);
+
+    // Calculate SNR in linear scale
+    double snrLinear = rxPower_Watts / thermalNoisePower_Watts;
+
+    return snrLinear;
+}
+
+double calculateSpectralEfficiencyPerLayer(double snrLinear) {
+    if (snrLinear < 0) {
+        return 0.0;  // Return zero as an error indicator 
+                     // since snrLinear is assumed to be non-negative
+    }
+
+    // Calculate spectral efficiency using the Shannon formula
+    double spectralEfficiency = std::log2(1 + snrLinear);
+
+    return spectralEfficiency;
+}
+
+double determineIntermediateSpectralEfficiency(double spectralEfficiency) {
+    // Define the CQI table
+    std::vector<CQIEntry> cqiTable = {
+        {0,  "Modulation_Zero",    0,   0.0},
+        {1,  "Modulation_QPSK",    78,  0.1523},
+        {2,  "Modulation_QPSK",    193, 0.3770},
+        {3,  "Modulation_QPSK",    449, 0.8770},
+        {4,  "Modulation_16_QAM",  378, 1.4766},
+        {5,  "Modulation_16_QAM",  490, 1.9141},
+        {6,  "Modulation_16_QAM",  616, 2.4063},
+        {7,  "Modulation_64_QAM",  466, 2.7305},
+        {8,  "Modulation_64_QAM",  567, 3.3223},
+        {9,  "Modulation_64_QAM",  666, 3.9023},
+        {10, "Modulation_64_QAM",  772, 4.5234},
+        {11, "Modulation_64_QAM",  873, 5.1152},
+        {12, "Modulation_256_QAM", 711, 5.5547},
+        {13, "Modulation_256_QAM", 797, 6.2266},
+        {14, "Modulation_256_QAM", 885, 6.9141},
+        {15, "Modulation_256_QAM", 948, 7.4063}
+    };
+
+    // Initialize to the lowest CQI if all else fails
+    int closestCQI = 0;
+    double minDiff = std::numeric_limits<double>::max();
+
+    // Find the closest CQI entry
+    for (const auto& entry : cqiTable) {
+        double diff = std::fabs(entry.intermediateSpectralEfficiency - spectralEfficiency);
+        if (diff < minDiff) {
+            minDiff = diff;
+            closestCQI = entry.index;
+        }
+    }
+
+    return cqiTable[closestCQI].intermediateSpectralEfficiency;
+}
+
+std::pair<int, double> determineModulationAndCodeRate(double spectralEfficiency) {
+    // Define the MCS table
+    std::vector<MCSEntry> mcsTable = {
+        {0,  2, "Modulation_QPSK",    120,   0.2344},
+        {1,  2, "Modulation_QPSK",    193,   0.3770},
+        {2,  2, "Modulation_QPSK",    308,   0.6016},
+        {3,  2, "Modulation_QPSK",    449,   0.8770},
+        {4,  2, "Modulation_QPSK",    602,   1.1758},
+        {5,  4, "Modulation_16_QAM",  378,   1.4766},
+        {6,  4, "Modulation_16_QAM",  434,   1.6953},
+        {7,  4, "Modulation_16_QAM",  490,   1.9141},
+        {8,  4, "Modulation_16_QAM",  553,   2.1602},
+        {9,  4, "Modulation_16_QAM",  616,   2.4063},
+        {10, 4, "Modulation_16_QAM",  658,   2.5703},
+        {11, 6, "Modulation_64_QAM",  466,   2.7305},
+        {12, 6, "Modulation_64_QAM",  517,   3.0293},
+        {13, 6, "Modulation_64_QAM",  567,   3.3223},
+        {14, 6, "Modulation_64_QAM",  616,   3.6094},
+        {15, 6, "Modulation_64_QAM",  666,   3.9023},
+        {16, 6, "Modulation_64_QAM",  719,   4.2129},
+        {17, 6, "Modulation_64_QAM",  772,   4.5234},
+        {18, 6, "Modulation_64_QAM",  822,   4.8164},
+        {19, 6, "Modulation_64_QAM",  873,   5.1152},
+        {20, 8, "Modulation_256_QAM", 682.5, 5.3320},
+        {21, 8, "Modulation_256_QAM", 711,   5.5547},
+        {22, 8, "Modulation_256_QAM", 754,   5.8906},
+        {23, 8, "Modulation_256_QAM", 797,   6.2266},
+        {24, 8, "Modulation_256_QAM", 841,   6.5703},
+        {25, 8, "Modulation_256_QAM", 885,   6.9141},
+        {26, 8, "Modulation_256_QAM", 916.5, 7.1602},
+        {27, 8, "Modulation_256_QAM", 948,   7.4063}
+    };
+
+    // Initialize to the lowest CQI if all else fails
+    int closestMcsIndex = 0;
+    double minDiff = std::numeric_limits<double>::max();
+
+    // Find the closest MCS entry
+    for (const auto& entry : mcsTable) {
+        double diff = std::fabs(entry.maxSpectralEfficiency - spectralEfficiency);
+        if (diff < minDiff) {
+            minDiff = diff;
+            closestMcsIndex = entry.index;
+        }
+    }
+
+    // Fetch the values from the specified index
+    int modulationOrder = mcsTable[closestMcsIndex].modulationOrder;
+    int mcsCodeRate = mcsTable[closestMcsIndex].mcsCodeRate;
+
+    // Return them as a pair
+    return std::make_pair(modulationOrder, mcsCodeRate);
+
+}
+
+int calculateAvailableREs(int numberOfSubcarriers, int numberOfSymbols, int numberOfREsForDMRS, int overheadFromHigherLayer) {
+    // Calculate the total number of REs for data transfer
+    int totalREs = numberOfSubcarriers * numberOfSymbols;
+
+    // Calculate available REs after subtracting DMRS and other overhead
+    int availableREs = totalREs - numberOfREsForDMRS - overheadFromHigherLayer;
+
+    return availableREs;
+}
+
+int calculateActualAvailableREs(int availableREsPerRB, int numberOfAllocatedPRBs) {
+    // The UE never assumes more than 156 REs per RB
+    int cappedREsPerRB = std::min(156, availableREsPerRB);
+
+    // Calculate the total actual REs available
+    int totalActualREs = cappedREsPerRB * numberOfAllocatedPRBs;
+
+    return totalActualREs;
+}
+
+int calculateNumberOfInformationBits(int N, double codeRate, int modulationOrder) {
+    // Calculate the scaled code rate
+    double R = codeRate / 1024.0;
+
+    // Calculate the number of information bits
+    int Ninfo = static_cast<int>(N * R * modulationOrder);
+
+    return Ninfo;
+}
+
+int calculateNinfoPrime(int Ninfo) {
+    if (Ninfo <= 3824) {
+        int n = std::max(3, static_cast<int>(std::floor(std::log2(Ninfo))) - 6);
+        int powerOfTwo = static_cast<int>(std::pow(2, n));
+        int roundedNinfo = powerOfTwo * static_cast<int>(std::floor(Ninfo / powerOfTwo));
+        return std::max(24, roundedNinfo);
+    } else {
+        int n = static_cast<int>(std::floor(std::log2(Ninfo - 24))) - 5;
+        int powerOfTwo = static_cast<int>(std::pow(2, n));
+        int roundedNinfo = static_cast<int>(std::round(static_cast<double>(Ninfo - 24) / powerOfTwo) * powerOfTwo);
+        return roundedNinfo;
+    }
+}
+
+// When NinfoPrime <= 3824
+int findTBSForNinfoPrime(int NinfoPrime) {
+    // Define the TBS table
+    std::vector<TBSEntry> tbsTable = {
+        {1,24},{2,32},{3,40},{4,48},{5,56},{6,64},{7,72},{8,80},{9,88},{10,96},
+        {11,104},{12,112},{13,120},{14,128},{15,136},{16,144},{17,152},{18,160},
+        {19,168},{20,176},{21,184},{22,192},{23,208},{24,224},{25,240},{26,256},
+        {27,272},{28,288},{29,304},{30,320},{31,336},{32,352},{33,368},{34,384},
+        {35,408},{36,432},{37,456},{38,480},{39,504},{40,528},{41,552},{42,576},
+        {43,608},{44,640},{45,672},{46,704},{47,736},{48,768},{49,808},{50,848},
+        {51,888},{52,928},{53,984},{54,1032},{55,1064},{56,1128},{57,1160},{58,1192},
+        {59,1224},{60,1256},{61,1288},{62,1320},{63,1352},{64,1416},{65,1480},
+        {66,1544},{67,1608},{68,1672},{69,1736},{70,1800},{71,1864},{72,1928},
+        {73,2024},{74,2088},{75,2152},{76,2216},{77,2280},{78,2408},{79,2472},
+        {80,2536},{81,2600},{82,2664},{83,2728},{84,2792},{85,2856},{86,2976},
+        {87,3104},{88,3240},{89,3368},{90,3496},{91,3624},{92,3752},{93,3824}
+    };
+
+    // Use std::find_if to find the first entry where TBS >= NinfoPrime
+    auto it = std::find_if(tbsTable.begin(), tbsTable.end(), [NinfoPrime](const TBSEntry& entry) {
+        return entry.TBS >= NinfoPrime;
+    });
+
+    if (it != tbsTable.end()) {
+        return it->TBS;
+    } else {
+        // In case no valid TBS is found, return the largest TBS or handle error
+        return tbsTable.back().TBS; // Returning the largest TBS as a fallback for now
+    }
+}
+
+// When NinfoPrime > 3824
+int calculateTBS(int NinfoPrime, int codeRate) {
+    double R = static_cast<double>(codeRate) / 1024.0; // Convert codeRate to actual fraction
+    int TBS = 0;
+    if (R <= 0.25) { // If R <= 1/4
+        int C = std::ceil((NinfoPrime + 24) / 3816.0);
+        TBS = 8 * C * std::ceil((NinfoPrime + 24) / (8.0 * C)) - 24;
+    } else { // If R > 1/4
+        if (NinfoPrime >= 8424) {
+            int C = std::ceil((NinfoPrime + 24) / 8424.0);
+            TBS = 8 * C * std::ceil((NinfoPrime + 24) / (8.0 * C)) - 24;
+        } else {
+            TBS = 8 * std::ceil((NinfoPrime + 24) / 8.0) - 24;
+        }
+    }
+
+    return TBS;
+}
+
