@@ -265,9 +265,9 @@ struct CQIEntry {
  * the intermediate spectral efficiency.
  *
  * @param spectralEfficiency Spectral efficiency in bits/second/Hz.
- * @return intermediate spectral efficiency in bits/second/Hz.
+ * @return A pair containing CQI Index and intermediate spectral efficiency in bits/second/Hz.
  */
-double determineIntermediateSpectralEfficiency(double spectralEfficiency);
+std::pair<int, double> determineIntermediateSpectralEfficiency(double spectralEfficiency);
 
 /**
  * @brief Define a structure to hold MCS table entries.
@@ -333,7 +333,7 @@ int calculateActualAvailableREs(int availableREsPerRB, int numberOfAllocatedPRBs
  * @param modulationOrder Modulation order (Qm), e.g., 2 for QPSK, 4 for 16QAM, etc.
  * @return The number of information bits Ninfo.
  */
-int calculateNumberOfInformationBits(int N, double codeRate, int modulationOrder);
+double calculateNumberOfInformationBits(int N, double codeRate, int modulationOrder);
 
 /**
  * @brief Calculate NinfoPrime based on Ninfo for Transport Block Size (TBS) determination.
@@ -346,10 +346,10 @@ int calculateNumberOfInformationBits(int N, double codeRate, int modulationOrder
  * NinfoPrime = 2^n * round((Ninfo - 24)/2^n)
  * where n = [log2(Ninfo - 24)] - 5
  *
- * @param Ninfo Number of information bits calculated previously.
+ * @param Ninfo Number of information bits calculated.
  * @return The NinfoPrime value for TBS determination.
  */
-int calculateNinfoPrime(int Ninfo);
+int calculateNinfoPrime(double Ninfo);
 
 /**
  * @brief Define a structure to hold TBS table entries.

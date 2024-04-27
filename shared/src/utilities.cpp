@@ -203,7 +203,7 @@ double calculateSpectralEfficiencyPerLayer(double snrLinear) {
     return spectralEfficiency;
 }
 
-double determineIntermediateSpectralEfficiency(double spectralEfficiency) {
+std::pair<int, double> determineIntermediateSpectralEfficiency(double spectralEfficiency) {
     // Define the CQI table
     std::vector<CQIEntry> cqiTable = {
         {0,  "Modulation_Zero",    0,   0.0},
@@ -237,7 +237,12 @@ double determineIntermediateSpectralEfficiency(double spectralEfficiency) {
         }
     }
 
-    return cqiTable[closestCQI].intermediateSpectralEfficiency;
+    // Fetch the values from the specified index
+    int cqiIndex = cqiTable[closestCQI].index;
+    double specEfficiency = cqiTable[closestCQI].intermediateSpectralEfficiency;
+
+    // Return them as a pair
+    return std::make_pair(cqiIndex, specEfficiency);
 }
 
 std::pair<int, double> determineModulationAndCodeRate(double spectralEfficiency) {
@@ -315,17 +320,17 @@ int calculateActualAvailableREs(int availableREsPerRB, int numberOfAllocatedPRBs
     return totalActualREs;
 }
 
-int calculateNumberOfInformationBits(int N, double codeRate, int modulationOrder) {
+double calculateNumberOfInformationBits(int N, double codeRate, int modulationOrder) {
     // Calculate the scaled code rate
     double R = codeRate / 1024.0;
 
     // Calculate the number of information bits
-    int Ninfo = static_cast<int>(N * R * modulationOrder);
+    double Ninfo = N * R * modulationOrder;
 
     return Ninfo;
 }
 
-int calculateNinfoPrime(int Ninfo) {
+int calculateNinfoPrime(double Ninfo) {
     if (Ninfo <= 3824) {
         int n = std::max(3, static_cast<int>(std::floor(std::log2(Ninfo))) - 6);
         int powerOfTwo = static_cast<int>(std::pow(2, n));
