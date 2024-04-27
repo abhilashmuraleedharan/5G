@@ -17,7 +17,7 @@ int main() {
     double scs = calculateSCS(n);
     
     // Calculate the symbol duration
-    double symbolDuration = calculateOFDMSymbolDuration(scs/1000);
+    double symbolDuration = calculateOFDMSymbolDuration(scs * 1000); // convert scs value to Hz from kHz before passing
 
     // Display the results
     std::cout << std::fixed << std::setprecision(6);
