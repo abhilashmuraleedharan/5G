@@ -436,3 +436,42 @@ double calculateDLFraction(const std::string& ratioStr) {
     double totalParts = dl + ul;
     return dl / totalParts;
 }
+
+double calculate5GPathLoss(double gNBAntennaHeight, double ueHeight, double fLow, double fHigh, double distance2D, 
+                           double buildingHeight, double streetWidth, bool isLOS) {
+    // Calculate center frequency and normalized frequency
+    double centerFrequency = (fLow + fHigh) / 2;
+    double fNorm = centerFrequency / 1e9; // Normalized by 1 GHz
+
+    // Calculate breakpoint distance
+    double breakpointDistance = 2 * pi * gNBAntennaHeight * ueHeight * (centerFrequency / speedOfLight);
+
+    // Calculate 3D distance
+    double distance3D = std::sqrt(distance2D * distance2D + (gNBAntennaHeight - ueHeight) * (gNBAntennaHeight - ueHeight));
+
+    // Calculate LOS path loss for all distances to use as baseline
+    double plLos = 0;
+    if (distance2D >= 10 && distance2D <= breakpointDistance) {
+        plLos = 20 * log10(40 * pi * distance3D * fNorm / 3) +
+                std::min(0.03 * pow(buildingHeight, 1.72), 10.0) * log10(distance3D) -
+                std::min(0.044 * pow(buildingHeight, 1.72), 14.77) + 0.002 * log10(buildingHeight) * distance3D;
+    } else if (distance2D >= breakpointDistance && distance2D <= 10000) {
+        // First calculate PL1 at breakpoint distance
+        double pl1Breakpoint = 20 * log10((40 * pi * breakpointDistance * fNorm) / 3) +
+                       std::min(0.03 * pow(buildingHeight, 1.72), 10.0) * log10(breakpointDistance) -
+                       std::min(0.044 * pow(buildingHeight, 1.72), 14.77) + 0.002 * log10(buildingHeight) * breakpointDistance;
+        // Then use PL2 formula
+        plLos = pl1Breakpoint + 40 * log10(distance3D / breakpointDistance);
+    }
+
+    // Calculate NLOS path loss and compare it to LOS path loss
+    double plNlos = 161.04 - 7.1 * log10(streetWidth) + 7.5 * log10(buildingHeight) -
+                    (24.37 - 3.7 * pow((buildingHeight / gNBAntennaHeight), 2)) * log10(gNBAntennaHeight) +
+                    (43.42 - 3.1 * pow(log10(gNBAntennaHeight), 2)) * (log10(distance3D) - 3) +
+                    20 * log10(fNorm) - 3.2 * pow(log10(11.75 * ueHeight), 2) - 4.97;
+
+    // Use the greater of the LOS and NLOS path loss values
+    double pathLoss = isLOS ? plLos : std::max(plLos, plNlos);
+
+    return pathLoss;
+}

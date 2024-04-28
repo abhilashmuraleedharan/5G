@@ -15,6 +15,10 @@
 #include <string>
 #include <sstream> // For string stream operations
 
+// Constants
+const double pi = 3.14159265358979323846;
+const double speedOfLight = 3e8; // Speed of light in meters/second
+
 /**
  * Calculates the wavelength of a signal given its frequency.
  * 
@@ -441,4 +445,20 @@ double calculateDLApplicationThroughput(int bitsPerSlot, double dlFraction, doub
  */
 double calculateDLFraction(const std::string& ratioStr);
 
+/**
+ * @brief Calculate the 5G path loss based on the given parameters, using LOS path loss as baseline for NLOS comparison.
+ *
+ * @param gNBAntennaHeight Height of the gNB antenna in meters.
+ * @param ueHeight Height of the UE in meters.
+ * @param fLow Lower frequency in Hz.
+ * @param fHigh Higher frequency in Hz.
+ * @param distance2D Horizontal distance between gNB and UE in meters.
+ * @param buildingHeight Height of the building in meters (for NLOS scenarios).
+ * @param streetWidth Width of the street in meters (for NLOS scenarios).
+ * @param isLOS Boolean indicating if the scenario is Line of Sight.
+ * @return Calculated path loss in dB.
+ */
+double calculate5GPathLoss(double gNBAntennaHeight, double ueHeight, double fLow, double fHigh, double distance2D, 
+                           double buildingHeight, double streetWidth, bool isLOS);
+                           
 #endif // UTILITIES_H
