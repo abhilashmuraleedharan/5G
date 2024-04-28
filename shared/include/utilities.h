@@ -228,6 +228,18 @@ double calculateThermalNoisePower(double temperature, double bandwidth);
 double dBmToWatts(double dBm);
 
 /**
+ * @brief Convert power from watts to dBm.
+ *
+ * The conversion formula used is:
+ * P(dBm) = 10 * log10(P(W)/0.001),
+ * where P(W) is the power in Watts.
+ * 
+ * @param watts Power level in watts.
+ * @return Power level in dBm.
+ */
+double wattsToDbm(double watts);
+
+/**
  * @brief Calculate the Signal-to-Noise Ratio (SNR) in linear scale.
  *
  * This function calculates the SNR given the received power in dBm and the thermal noise power in watts.

@@ -178,7 +178,11 @@ double calculateThermalNoisePower(double temperature, double bandwidth) {
 }
 
 double dBmToWatts(double dBm) {
-    return 1e-3 * std::pow(10, dBm / 10); // Convert dBm to Watts
+    return 1e-3 * std::pow(10, dBm / 10); // 1mW * 10^(P(dBm)/10)
+}
+
+double wattsToDbm(double watts) {
+    return 10.0 * log10(watts / 0.001); // 10 * log10(watts / 0.001)
 }
 
 double calculateSNRLinear(double rxPower_dBm, double thermalNoisePower_Watts) {
