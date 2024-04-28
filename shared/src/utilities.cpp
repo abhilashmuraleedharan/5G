@@ -465,10 +465,13 @@ double calculate5GPathLoss(double gNBAntennaHeight, double ueHeight, double fLow
     }
 
     // Calculate NLOS path loss and compare it to LOS path loss
-    double plNlos = 161.04 - 7.1 * log10(streetWidth) + 7.5 * log10(buildingHeight) -
+    double plNlos = 0;
+    if (distance2D >= 10 && distance2D <= 5000) {
+        plNlos = 161.04 - 7.1 * log10(streetWidth) + 7.5 * log10(buildingHeight) -
                     (24.37 - 3.7 * pow((buildingHeight / gNBAntennaHeight), 2)) * log10(gNBAntennaHeight) +
-                    (43.42 - 3.1 * pow(log10(gNBAntennaHeight), 2)) * (log10(distance3D) - 3) +
-                    20 * log10(fNorm) - 3.2 * pow(log10(11.75 * ueHeight), 2) - 4.97;
+                    (43.42 - (3.1 * pow(log10(gNBAntennaHeight), 2))) * (log10(distance3D) - 3) +
+                    20 * (log10(fNorm)) - (3.2 * pow(log10(11.75 * ueHeight), 2) - 4.97);
+    }
 
     // Use the greater of the LOS and NLOS path loss values
     double pathLoss = isLOS ? plLos : std::max(plLos, plNlos);

@@ -25,6 +25,7 @@ add_executable(CoherenceBandwidthCalculator utilities/CoherenceBandwidthCalculat
 add_executable(DescribeFrameStructureGivenNumerology utilities/DescribeFrameStructureGivenNumerology/src/main.cpp shared/src/utilities.cpp)
 add_executable(QamModulationSchemeDescriptor utilities/QamModulationSchemeDescriptor/src/main.cpp shared/src/utilities.cpp)
 add_executable(DLThroughputCalculator utilities/DLThroughputCalculator/src/main.cpp shared/src/utilities.cpp)
+add_executable(PathLossCalculator5G utilities/PathLossCalculator5G/src/main.cpp shared/src/utilities.cpp)
 
 # Enable testing with Google Test
 enable_testing()
