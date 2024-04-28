@@ -4,7 +4,7 @@ Welcome to the 5G Utilities repository! This collection of tools assists in unde
 
 ## Repository Structure
 
-The project is organized into several directories to maintain cleanliness and modularity:
+The project is organized into following directories:
 
 - **/utilities/**: Contains individual directories for each utility.
 - **/shared/**: Contains shared source code and headers used across multiple utilities.
