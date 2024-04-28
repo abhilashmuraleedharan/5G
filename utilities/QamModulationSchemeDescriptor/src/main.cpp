@@ -7,7 +7,7 @@ int main() {
     double sf; // Scaling factor
 
     // Example usage
-    std::cout << "Enter the QAM Modulation Scheme Value M (e.g., 16, 64, 256): ";
+    std::cout << "Enter the QAM Modulation Scheme Value M (e.g., 16, 64, 256): " << std::endl;
     std::cin >> M;
 
     QamModulationSchemeDescriptor(M, b, sf);

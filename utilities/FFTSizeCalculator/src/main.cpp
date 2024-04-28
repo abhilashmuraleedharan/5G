@@ -5,7 +5,7 @@ int main() {
     double symbolDuration;
     double samplingFreq;
 
-    std::cout << "Enter the OFDM Symbol Duration in seconds: ";
+    std::cout << "Enter the OFDM Symbol Duration in seconds: " << std::endl;
     std::cin >> symbolDuration;
 
     if (!std::cin || symbolDuration <= 0) {
@@ -13,7 +13,7 @@ int main() {
         return 1;  // Return an error code
     }
 
-    std::cout << "Enter the Sampling Frequency in Hz: ";
+    std::cout << "Enter the Sampling Frequency in Hz: " << std::endl;
     std::cin >> samplingFreq;
 
     if (!std::cin || samplingFreq <= 0) {

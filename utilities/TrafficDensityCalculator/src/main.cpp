@@ -6,7 +6,7 @@ int main() {
     double cellularDensity; // cells/km^2
     double bandwidth;
 
-    std::cout << "Enter the Spectral Efficiency in bits/second/Hz/cell: ";
+    std::cout << "Enter the Spectral Efficiency in bits/second/Hz/cell: " << std::endl;
     std::cin >> spectralEfficiency;
 
     if (!std::cin || spectralEfficiency < 0) {
@@ -14,7 +14,7 @@ int main() {
         return 1;  // Return an error code
     }
 
-    std::cout << "Enter the Cellular Density in cells/km^2: ";
+    std::cout << "Enter the Cellular Density in cells/km^2: " << std::endl;
     std::cin >> cellularDensity;
 
     if (!std::cin || cellularDensity < 0) {
@@ -22,7 +22,7 @@ int main() {
         return 1;  // Return an error code
     }
 
-    std::cout << "Enter the Bandwidth in Hz: ";
+    std::cout << "Enter the Bandwidth in Hz: " << std::endl;
     std::cin >> bandwidth;
 
     if (!std::cin || bandwidth < 0) {

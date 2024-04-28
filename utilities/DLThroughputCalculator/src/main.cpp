@@ -4,7 +4,7 @@
 
 int main() {
     std::cout << "\nRunning Analytical Data Throughput Calculator" << std::endl;
-    std::cout << "==============================================" << std::endl;
+    std::cout << "===============================================" << std::endl;
 
     char ip;
     int numOfLayers; // number of spatial layers

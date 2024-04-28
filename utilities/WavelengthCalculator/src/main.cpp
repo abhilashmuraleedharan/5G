@@ -4,7 +4,7 @@
 int main() {
     double frequency;
 
-    std::cout << "Enter the frequency of the signal in Hz: ";
+    std::cout << "Enter the frequency of the signal in Hz: " << std::endl;
     std::cin >> frequency;
 
     if (!std::cin || frequency <= 0) {

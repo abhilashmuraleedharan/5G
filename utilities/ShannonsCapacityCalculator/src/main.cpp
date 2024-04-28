@@ -4,9 +4,9 @@
 int main() {
     double bandwidth, snr;
 
-    std::cout << "Enter the bandwidth in Hz: ";
+    std::cout << "Enter the bandwidth in Hz: " << std::endl;
     std::cin >> bandwidth;
-    std::cout << "Enter the signal-to-noise ratio (SNR): ";
+    std::cout << "Enter the linear signal-to-noise ratio (SNR): " << std::endl;
     std::cin >> snr;
 
     if (!std::cin || bandwidth <= 0 || snr < 0) {

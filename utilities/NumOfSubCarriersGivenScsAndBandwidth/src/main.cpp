@@ -5,7 +5,7 @@ int main() {
     double bandwidth;
     double scs;
 
-    std::cout << "Enter the Bandwidth in Hz: ";
+    std::cout << "Enter the Bandwidth in Hz: " << std::endl;
     std::cin >> bandwidth;
 
     if (!std::cin || bandwidth <= 0) {
@@ -13,7 +13,7 @@ int main() {
         return 1;  // Return an error code
     }
 
-    std::cout << "Enter the SCS in kHz: ";
+    std::cout << "Enter the SCS in kHz: " << std::endl;
     std::cin >> scs;
 
     if (!std::cin || scs <= 0) {

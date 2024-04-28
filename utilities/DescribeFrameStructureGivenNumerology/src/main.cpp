@@ -4,7 +4,7 @@
 int main() {
     // Read the numerology value from the user
     int n;
-    std::cout << "Enter the numerology value (n): ";
+    std::cout << "Enter the numerology value (n): " << std::endl;
     std::cin >> n;
 
     // Calculate the slot size in milliseconds

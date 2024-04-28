@@ -4,7 +4,7 @@
 int main() {
     double scs;
 
-    std::cout << "Enter the SCS in kHz: ";
+    std::cout << "Enter the SCS in kHz: " << std::endl;
     std::cin >> scs;
 
     if (!std::cin || scs <= 0) {

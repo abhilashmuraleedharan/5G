@@ -4,7 +4,7 @@
 int main() {
     double wavelength;
 
-    std::cout << "Enter the wavelength in meters: ";
+    std::cout << "Enter the wavelength in meters: " << std::endl;
     std::cin >> wavelength;
 
     if (!std::cin || wavelength <= 0) {

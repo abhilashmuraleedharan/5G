@@ -4,7 +4,7 @@
 int main() {
     double delaySpread;
 
-    std::cout << "Enter the Delay Spread in seconds: ";
+    std::cout << "Enter the Delay Spread in seconds: " << std::endl;
     std::cin >> delaySpread;
 
     if (!std::cin || delaySpread <= 0) {

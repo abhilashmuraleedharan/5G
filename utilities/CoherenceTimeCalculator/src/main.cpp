@@ -5,7 +5,7 @@ int main() {
     double wavelength;
     double speed;
 
-    std::cout << "Enter the Wavelength in meters: ";
+    std::cout << "Enter the Wavelength in meters: " << std::endl;
     std::cin >> wavelength;
 
     if (!std::cin || wavelength <= 0) {
@@ -13,7 +13,7 @@ int main() {
         return 1;  // Return an error code
     }
 
-    std::cout << "Enter the speed of the wireless device in meters/sec: ";
+    std::cout << "Enter the speed of the wireless device in meters/sec: " << std::endl;
     std::cin >> speed;
 
     if (!std::cin || speed <= 0) {
