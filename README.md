@@ -1,10 +1,35 @@
-# 5G Utilities
+# 5G Utilities Repository
 
-Welcome to the 5G Utilities repository! This collection of tools assists in understanding and optimizing 5G telecommunications technology. Each utility is designed to perform specific calculations, such as determining data throughput, spectral efficiency, Shannon's Capacity, and more.
+Welcome to the 5G Utilities repository, your comprehensive toolkit for the analysis, design, and simulation of 5G communication systems. This repository is designed as a central hub where developers, researchers, engineers, and students can access and contribute to a growing collection of tools and scripts tailored to enhance 5G technology engagements.
+
+## Origin
+
+This repository is inspired by the extensive hands-on experiments with 5G RAN in the NetSim simulator, conducted as part of the PG Level Advanced Certification in 5G Technologies course offered by IISc in association with Telent Sprint. This experience highlighted a clear need for streamlined, accessible tools to handle the frequent and complex calculations involved in 5G technology.
+
+## Purpose
+
+The 5G Utilities repository provides:
+
+- **Practical Tools**: Essential calculations and models for 5G network design and operation.
+- **Educational Resources**: Detailed documentation and examples to aid learning about 5G technology.
+- **Community Contributions**: A collaborative environment for sharing knowledge and solutions.
+
+## Features
+
+- **Path Loss Calculators**: For both LOS and NLOS scenarios using 5G-specific propagation models.
+- **Power Converters**: Convert between dBm and watts, essential for signal and system level analysis.
+- **Spectral Efficiency Estimators**: Based on various modulation and coding schemes.
+- **PRB Utilization Metrics**: Evaluate efficiency under different network conditions.
+- **Throughput Calculators**: Assess network capacity and performance capabilities.
+
+## Target Audience
+
+- **Telecommunications Engineers** and **Network Designers**
+- **Academics** and **Students** in wireless communication and 5G technology
 
 ## Repository Structure
 
-The project is organized into several directories to maintain cleanliness and modularity:
+The project is organized into following directories:
 
 - **/utilities/**: Contains individual directories for each utility.
 - **/shared/**: Contains shared source code and headers used across multiple utilities.
