@@ -368,14 +368,6 @@ double calculateNumberOfInformationBits(int N, double codeRate, int modulationOr
 int calculateNinfoPrime(double Ninfo);
 
 /**
- * @brief Define a structure to hold TBS table entries.
- */
-struct TBSEntry {
-    int index;
-    int TBS;
-};
-
-/**
  * @brief Find the TBS size for a given NinfoPrime using a predefined TBS table.
  *
  * This function searches the TBS table to find the minimum TBS value that is greater

@@ -351,32 +351,31 @@ int calculateNinfoPrime(double Ninfo) {
 // When NinfoPrime <= 3824
 int findTBSForNinfoPrime(int NinfoPrime) {
     // Define the TBS table
-    std::vector<TBSEntry> tbsTable = {
-        {1,24},{2,32},{3,40},{4,48},{5,56},{6,64},{7,72},{8,80},{9,88},{10,96},
-        {11,104},{12,112},{13,120},{14,128},{15,136},{16,144},{17,152},{18,160},
-        {19,168},{20,176},{21,184},{22,192},{23,208},{24,224},{25,240},{26,256},
-        {27,272},{28,288},{29,304},{30,320},{31,336},{32,352},{33,368},{34,384},
-        {35,408},{36,432},{37,456},{38,480},{39,504},{40,528},{41,552},{42,576},
-        {43,608},{44,640},{45,672},{46,704},{47,736},{48,768},{49,808},{50,848},
-        {51,888},{52,928},{53,984},{54,1032},{55,1064},{56,1128},{57,1160},{58,1192},
-        {59,1224},{60,1256},{61,1288},{62,1320},{63,1352},{64,1416},{65,1480},
-        {66,1544},{67,1608},{68,1672},{69,1736},{70,1800},{71,1864},{72,1928},
-        {73,2024},{74,2088},{75,2152},{76,2216},{77,2280},{78,2408},{79,2472},
-        {80,2536},{81,2600},{82,2664},{83,2728},{84,2792},{85,2856},{86,2976},
-        {87,3104},{88,3240},{89,3368},{90,3496},{91,3624},{92,3752},{93,3824}
+    std::vector<int> tbsTable = {
+        24,32,40,48,56,64,72,80,88,96,104,112,120,128,136,144,152,160,168,176,184,192,208,224,240,256,
+        272,288,304,320,336,352,368,384,408,432,456,480,504,528,552,576,608,640,672,704,736,768,808,848,
+        888,928,984,1032,1064,1128,1160,1192,1224,1256,1288,1320,1352,1416,1480,1544,1608,1672,1736,1800,
+        1864,1928,2024,2088,2152,2216,2280,2408,2472,2536,2600,2664,2728,2792,2856,2976,3104,3240,3368,
+        3496,3624,3752,3824
     };
 
-    // Use std::find_if to find the first entry where TBS >= NinfoPrime
-    auto it = std::find_if(tbsTable.begin(), tbsTable.end(), [NinfoPrime](const TBSEntry& entry) {
-        return entry.TBS >= NinfoPrime;
-    });
-
-    if (it != tbsTable.end()) {
-        return it->TBS;
-    } else {
-        // In case no valid TBS is found, return the largest TBS or handle error
-        return tbsTable.back().TBS; // Returning the largest TBS as a fallback for now
+    // Find the largest TBS that is less than NinfoPrime
+    int maxTBS = 0; // To keep track of the maximum TBS value that is less than NinfoPrime
+    for (int TBS : tbsTable) {
+        if (TBS < NinfoPrime) {
+            maxTBS = TBS; // Update maxTBS with the current TBS value
+        } else {
+            break; // Since TBS table is sorted, we can break the loop once we pass NinfoPrime
+        }
     }
+
+    // Check if we have found a valid TBS value
+    if (maxTBS == 0) {
+        // In case no valid TBS is found, return the smallest TBS for now. 
+        return tbsTable.front();
+    }
+
+    return maxTBS;
 }
 
 // When NinfoPrime > 3824
