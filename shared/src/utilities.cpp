@@ -362,7 +362,7 @@ int findTBSForNinfoPrime(int NinfoPrime) {
     // Find the largest TBS that is less than NinfoPrime
     int maxTBS = 0; // To keep track of the maximum TBS value that is less than NinfoPrime
     for (int TBS : tbsTable) {
-        if (TBS < NinfoPrime) {
+        if (TBS <= NinfoPrime) {
             maxTBS = TBS; // Update maxTBS with the current TBS value
         } else {
             break; // Since TBS table is sorted, we can break the loop once we pass NinfoPrime
