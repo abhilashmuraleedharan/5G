@@ -489,8 +489,8 @@ double calculateDLFraction(const std::string& ratioStr, bool logging=false);
  *
  * @param gNBAntennaHeight Height of the gNB antenna in meters.
  * @param ueHeight Height of the UE in meters.
- * @param fLow Lower frequency in Hz.
- * @param fHigh Higher frequency in Hz.
+ * @param fLow Lower frequency in MHz.
+ * @param fHigh Higher frequency in MHz.
  * @param distance2D Horizontal distance between gNB and UE in meters.
  * @param buildingHeight Height of the building in meters (for NLOS scenarios).
  * @param streetWidth Width of the street in meters (for NLOS scenarios).

@@ -467,13 +467,25 @@ double calculate5GPathLossRural(double gNBAntennaHeight, double ueHeight, double
                            double buildingHeight, double streetWidth, bool isLOS, bool logging) {
     // Calculate center frequency and normalized frequency
     double centerFrequency = (fLow + fHigh) / 2;
+    if (logging)
+        std::cout << "centerFrequency: " << centerFrequency << " MHz" << std::endl;
+
+    // convert centerFrequency to Hz for further calculations
+    centerFrequency = centerFrequency * 1e6;
+    
     double fNorm = centerFrequency / 1e9; // Normalized by 1 GHz
+    if (logging)
+        std::cout << "fNorm: " << fNorm << " GHz" << std::endl;
 
     // Calculate breakpoint distance
     double breakpointDistance = 2 * pi * gNBAntennaHeight * ueHeight * (centerFrequency / speedOfLight);
+    if (logging)
+        std::cout << "breakPointDistance: " << breakpointDistance << std::endl;
 
     // Calculate 3D distance
     double distance3D = std::sqrt(distance2D * distance2D + (gNBAntennaHeight - ueHeight) * (gNBAntennaHeight - ueHeight));
+    if (logging)
+        std::cout << "distance3D: " << distance3D << std::endl;
 
     // Calculate LOS path loss for all distances to use as baseline
     double plLos = 0;

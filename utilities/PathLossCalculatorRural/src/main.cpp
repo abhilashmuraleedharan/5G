@@ -28,7 +28,7 @@ int main() {
         return 1;  // Return an error code
     }
 
-    std::cout << "Enter the lower frequency of the bandwidth in Hz: " << std::endl;
+    std::cout << "Enter the lower frequency of the bandwidth in MHz: " << std::endl;
     std::cin >> fLow;
 
     if (!std::cin || fLow <= 0) {
@@ -36,7 +36,7 @@ int main() {
         return 1;  // Return an error code
     }
 
-    std::cout << "Enter the higher frequency of the bandwidth in Hz: " << std::endl;
+    std::cout << "Enter the higher frequency of the bandwidth in MHz: " << std::endl;
     std::cin >> fHigh;
 
     if (!std::cin || fHigh <= 0) {
@@ -88,8 +88,15 @@ int main() {
     }
 
     double pathLoss = calculate5GPathLossRural(gNBAntennaHeight, ueHeight, fLow, fHigh, distance2D,
-                                          buildingHeight, streetWidth, isLOS);
-    std::cout << "Calculated Path Loss: " << pathLoss << " dB" << std::endl;
+                                          buildingHeight, streetWidth, isLOS, true);
+                                          
+    std::string message = std::string("Calculated Path Loss for Rural ");
+    if (isLOS) 
+        message += std::string("LOS Scenario: ");
+    else
+        message += std::string("NLOS Scenario: ");
+
+    std::cout << message << pathLoss << " dB" << std::endl;
 
     return 0;
 }
