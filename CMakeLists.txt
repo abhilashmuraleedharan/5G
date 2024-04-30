@@ -25,7 +25,7 @@ add_executable(CoherenceBandwidthCalculator utilities/CoherenceBandwidthCalculat
 add_executable(DescribeFrameStructureGivenNumerology utilities/DescribeFrameStructureGivenNumerology/src/main.cpp shared/src/utilities.cpp)
 add_executable(QamModulationSchemeDescriptor utilities/QamModulationSchemeDescriptor/src/main.cpp shared/src/utilities.cpp)
 add_executable(DLThroughputCalculator utilities/DLThroughputCalculator/src/main.cpp shared/src/utilities.cpp)
-add_executable(PathLossCalculator5G utilities/PathLossCalculator5G/src/main.cpp shared/src/utilities.cpp)
+add_executable(PathLossCalculatorRural utilities/PathLossCalculatorRural/src/main.cpp shared/src/utilities.cpp)
 add_executable(ConvertDbmToWatts utilities/ConvertDbmToWatts/src/main.cpp shared/src/utilities.cpp)
 add_executable(ConvertWattsToDbm utilities/ConvertWattsToDbm/src/main.cpp shared/src/utilities.cpp)
 add_executable(CalculateSpectralEfficiency utilities/CalculateSpectralEfficiency/src/main.cpp shared/src/utilities.cpp)

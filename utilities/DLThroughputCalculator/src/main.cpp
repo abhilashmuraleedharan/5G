@@ -191,7 +191,7 @@ int main() {
     std::cout << "Calculating slot time..." << std::endl;
     double slotDuration = calculateSlotSize(numerology);
     std::cout << "Slot Duration: " << slotDuration << std::endl;
-    double dlAppThroughput = calculateDLApplicationThroughput(bitsPerSlot, dlFraction, slotDuration, applicationPacketSize, macPacketSize);
+    double dlAppThroughput = calculateDLApplicationThroughput(bitsPerSlot, dlFraction, slotDuration, applicationPacketSize, macPacketSize, true);
     std::cout << "DL Application Throughput: " << dlAppThroughput/1000 << " Mbps\n" << std::endl;
 
     return 0;

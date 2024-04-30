@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <string>
 #include <sstream> // For string stream operations
+#include <iostream>
 
 // Constants
 const double pi = 3.14159265358979323846;
@@ -23,9 +24,10 @@ const double speedOfLight = 3e8; // Speed of light in meters/second
  * Calculates the wavelength of a signal given its frequency.
  * 
  * @param frequency Frequency of the signal in hertz (Hz).
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Wavelength in meters (m).
  */
-double calculateWavelength(double frequency);
+double calculateWavelength(double frequency, bool logging=false);
 
 /**
  * @brief Calculate the frequency from wavelength.
@@ -34,18 +36,20 @@ double calculateWavelength(double frequency);
  * using the speed of light (c).
  *
  * @param wavelength The wavelength in meters.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return The frequency in Hz.
  */
-double calculateFrequencyFromWavelength(double wavelength);
+double calculateFrequencyFromWavelength(double wavelength, bool logging=false);
 
 /**
  * Calculates Shannon's Capacity given bandwidth and signal-to-noise ratio.
  * 
  * @param bandwidth The bandwidth in hertz (Hz).
  * @param snr The signal-to-noise ratio (dimensionless).
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Shannon's Capacity in bits per second (bps).
  */
-double calculateShannonsCapacity(double bandwidth, double snr);
+double calculateShannonsCapacity(double bandwidth, double snr, bool logging=false);
 
 /**
  * @brief Calculate the OFDM symbol duration.
@@ -55,9 +59,10 @@ double calculateShannonsCapacity(double bandwidth, double snr);
  * symbol duration in microseconds.
  *
  * @param scs Subcarrier spacing in Hz.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return OFDM symbol duration in microseconds.
  */
-double calculateOFDMSymbolDuration(double scs);
+double calculateOFDMSymbolDuration(double scs, bool logging=false);
 
 /**
  * @brief Calculate the number of subcarriers (Nsc).
@@ -67,9 +72,10 @@ double calculateOFDMSymbolDuration(double scs);
  *
  * @param bandwidth The system bandwidth in Hz.
  * @param scs Subcarrier spacing in kHz.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return The number of subcarriers (Nsc).
  */
-int calculateNumberOfSubcarriers(double bandwidth, double scs);
+int calculateNumberOfSubcarriers(double bandwidth, double scs, bool logging=false);
 
 /**
  * @brief Calculate the FFT size.
@@ -79,9 +85,10 @@ int calculateNumberOfSubcarriers(double bandwidth, double scs);
  *
  * @param symbolDuration OFDM symbol duration in seconds.
  * @param samplingFreq Sampling frequency in Hz.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return The FFT size.
  */
-int calculateFFTSize(double symbolDuration, double samplingFreq);
+int calculateFFTSize(double symbolDuration, double samplingFreq, bool logging=false);
 
 /**
  * @brief Calculate the traffic density GkM.
@@ -92,9 +99,10 @@ int calculateFFTSize(double symbolDuration, double samplingFreq);
  * @param spectralEfficiency Spectral efficiency in bits/second/Hz/cell.
  * @param cellularDensity Cellular density in cells per square kilometer.
  * @param bandwidth Bandwidth in Hz.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Traffic density (GkM) in bits/second/km^2.
  */
-double calculateTrafficDensity(double spectralEfficiency, double cellularDensity, double bandwidth);
+double calculateTrafficDensity(double spectralEfficiency, double cellularDensity, double bandwidth, bool logging=false);
 
 /**
  * @brief Calculate the Coherence Time (Tc).
@@ -104,9 +112,10 @@ double calculateTrafficDensity(double spectralEfficiency, double cellularDensity
  *
  * @param wavelength Wavelength in meters.
  * @param speed Speed of the wireless device in meters per second.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Coherence Time (Tc) in seconds.
  */
-double calculateCoherenceTime(double wavelength, double speed);
+double calculateCoherenceTime(double wavelength, double speed, bool logging=false);
 
 /**
  * @brief Calculate the Coherence Bandwidth (Bc).
@@ -115,34 +124,38 @@ double calculateCoherenceTime(double wavelength, double speed);
  * The formula used is Bc = 1/Tdel, assuming the delay spread is given in seconds.
  *
  * @param delaySpread Delay spread in seconds.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Coherence Bandwidth (Bc) in Hz.
  */
-double calculateCoherenceBandwidth(double delaySpread);
+double calculateCoherenceBandwidth(double delaySpread, bool logging=false);
 
 /**
  * @brief Calculate the slot size given numerology.
  *
  * @param n Numerology value.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Slot size in milliseconds.
  */
-double calculateSlotSize(int n);
+double calculateSlotSize(int n, bool logging=false);
 
 /**
  * @brief Calculate the number of slots per subframe.
  *
  * A subframe is 1 millisecond long.
  * @param slotSize Slot size in milliseconds.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Number of slots per subframe.
  */
-int calculateNumberOfSlots(double slotSize);
+int calculateNumberOfSlots(double slotSize, bool logging=false);
 
 /**
  * @brief Calculate the Subcarrier Spacing (SCS) given numerology.
  *
  * @param n Numerology value.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return SCS in Hz.
  */
-double calculateSCS(int n);
+double calculateSCS(int n, bool logging=false);
 
 /**
  * @brief Describe the QAM Modulation Scheme.
@@ -155,8 +168,9 @@ double calculateSCS(int n);
  * @param M Modulation order (e.g., 16, 64, 256 for 16-QAM, 64-QAM, 256-QAM).
  * @param b Reference to a double to store the number of bits per QAM symbol.
  * @param sf Reference to a double to store the scaling factor.
+ * @param logging Boolean flag to enable or disable logging functionality
  */
-void QamModulationSchemeDescriptor(int M, double& b, double& sf);
+void QamModulationSchemeDescriptor(int M, double& b, double& sf, bool logging=false);
 
 /**
  * @brief Calculate the total large-scale loss in dB.
@@ -168,9 +182,10 @@ void QamModulationSchemeDescriptor(int M, double& b, double& sf);
  * @param pathLoss Path loss in dB.
  * @param shadowingLoss Shadowing loss in dB.
  * @param o2iLoss O2I loss in dB.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Total large-scale loss in dB.
  */
-double calculateLargeScaleTotalLoss(double pathLoss, double shadowingLoss, double o2iLoss);
+double calculateLargeScaleTotalLoss(double pathLoss, double shadowingLoss, double o2iLoss, bool logging=false);
 
 /**
  * @brief Calculate the transmitted power per layer in dBm.
@@ -182,9 +197,10 @@ double calculateLargeScaleTotalLoss(double pathLoss, double shadowingLoss, doubl
  *
  * @param txPower Total transmitted power in dBm
  * @param numOfLayers Number of spatial layers
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Transmitted power per layer in dBm.
  */
-double calculateTransmittedPowerPerLayer(double txPower, int numOfLayers);
+double calculateTransmittedPowerPerLayer(double txPower, int numOfLayers, bool logging=false);
 
 /**
  * @brief Calculate the received power per layer in dBm.
@@ -196,9 +212,10 @@ double calculateTransmittedPowerPerLayer(double txPower, int numOfLayers);
  * @param txPowerPerLayer Transmitted power per layer in dBm.
  * @param totalLoss Total large-scale loss in dB.
  * @param bfGain Beamforming gain in dB.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Received power per layer in dBm.
  */
-double calculateReceivedPowerPerLayer(double txPowerPerLayer, double totalLoss, double bfGain);
+double calculateReceivedPowerPerLayer(double txPowerPerLayer, double totalLoss, double bfGain, bool logging=false);
 
 /**
  * @brief Calculate the thermal noise power.
@@ -210,9 +227,10 @@ double calculateReceivedPowerPerLayer(double txPowerPerLayer, double totalLoss, 
  *
  * @param temperature Temperature in Kelvin.
  * @param bandwidth Bandwidth in Hz.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Thermal noise power in watts.
  */
-double calculateThermalNoisePower(double temperature, double bandwidth);
+double calculateThermalNoisePower(double temperature, double bandwidth, bool logging=false);
 
 /**
  * @brief Convert power from dBm to Watts.
@@ -223,9 +241,10 @@ double calculateThermalNoisePower(double temperature, double bandwidth);
  * where P(dBm) is the power in dBm.
  *
  * @param dBm Power in dBm.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Power in Watts.
  */
-double dBmToWatts(double dBm);
+double dBmToWatts(double dBm, bool logging=false);
 
 /**
  * @brief Convert power from watts to dBm.
@@ -235,9 +254,10 @@ double dBmToWatts(double dBm);
  * where P(W) is the power in Watts.
  * 
  * @param watts Power level in watts.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Power level in dBm.
  */
-double wattsToDbm(double watts);
+double wattsToDbm(double watts, bool logging=false);
 
 /**
  * @brief Calculate the Signal-to-Noise Ratio (SNR) in linear scale.
@@ -247,9 +267,10 @@ double wattsToDbm(double watts);
  *
  * @param rxPower_dBm Received power in dBm.
  * @param thermalNoisePower_Watts Thermal noise power in watts.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return SNR in linear scale.
  */
-double calculateSNRLinear(double rxPower_dBm, double thermalNoisePower_Watts);
+double calculateSNRLinear(double rxPower_dBm, double thermalNoisePower_Watts, bool logging=false);
 
 /**
  * @brief Calculate the spectral efficiency per layer.
@@ -259,9 +280,10 @@ double calculateSNRLinear(double rxPower_dBm, double thermalNoisePower_Watts);
  * where SNR(linear) is the signal-to-noise ratio in linear scale.
  *
  * @param snrLinear Signal-to-Noise Ratio in linear scale.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Spectral efficiency per layer in bits/second/Hz.
  */
-double calculateSpectralEfficiencyPerLayer(double snrLinear);
+double calculateSpectralEfficiencyPerLayer(double snrLinear, bool logging=false);
 
 /**
  * @brief Define a structure to hold CQI table entries.
@@ -281,9 +303,10 @@ struct CQIEntry {
  * the intermediate spectral efficiency.
  *
  * @param spectralEfficiency Spectral efficiency in bits/second/Hz.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return A pair containing CQI Index and intermediate spectral efficiency in bits/second/Hz.
  */
-std::pair<int, double> determineIntermediateSpectralEfficiency(double spectralEfficiency);
+std::pair<int, double> determineIntermediateSpectralEfficiency(double spectralEfficiency, bool logging=false);
 
 /**
  * @brief Define a structure to hold MCS table entries.
@@ -303,9 +326,10 @@ struct MCSEntry {
  * It returns the modulation order and code rate that correspond to the highest feasible spectral efficiency.
  *
  * @param spectralEfficiency The target spectral efficiency.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return A pair containing Modulation Order (Qm) and MCS Code Rate (R).
  */
-std::pair<int, double> determineModulationAndCodeRate(double spectralEfficiency);
+std::pair<int, double> determineModulationAndCodeRate(double spectralEfficiency, bool logging=false);
 
 /**
  * @brief Calculate the number of REs available for data transfer in a Resource Block.
@@ -318,9 +342,10 @@ std::pair<int, double> determineModulationAndCodeRate(double spectralEfficiency)
  * @param numberOfSymbols Number of symbols per slot.
  * @param numberOfREsForDMRS Number of REs reserved for DMRS.
  * @param overheadFromHigherLayer Overhead REs configured by higher layer parameters.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return The number of REs available for data.
  */
-int calculateAvailableREs(int numberOfSubcarriers, int numberOfSymbols, int numberOfREsForDMRS, int overheadFromHigherLayer);
+int calculateAvailableREs(int numberOfSubcarriers, int numberOfSymbols, int numberOfREsForDMRS, int overheadFromHigherLayer, bool logging=false);
 
 /**
  * @brief Calculate the actual number of REs available for data transfer.
@@ -331,9 +356,10 @@ int calculateAvailableREs(int numberOfSubcarriers, int numberOfSymbols, int numb
  *
  * @param availableREsPerRB Number of REs per RB available for data transfer.
  * @param numberOfAllocatedPRBs Number of allocated PRBs for the UE.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Actual total number of REs available for data transfer.
  */
-int calculateActualAvailableREs(int availableREsPerRB, int numberOfAllocatedPRBs);
+int calculateActualAvailableREs(int availableREsPerRB, int numberOfAllocatedPRBs, bool logging=false);
 
 /**
  * @brief Calculate the number of information bits.
@@ -347,9 +373,10 @@ int calculateActualAvailableREs(int availableREsPerRB, int numberOfAllocatedPRBs
  * @param N Total number of REs available for data transmission.
  * @param codeRate Code rate, provided as per 1024 units (e.g., 711 for a code rate of 711/1024).
  * @param modulationOrder Modulation order (Qm), e.g., 2 for QPSK, 4 for 16QAM, etc.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return The number of information bits Ninfo.
  */
-double calculateNumberOfInformationBits(int N, double codeRate, int modulationOrder);
+double calculateNumberOfInformationBits(int N, double codeRate, int modulationOrder, bool logging=false);
 
 /**
  * @brief Calculate NinfoPrime based on Ninfo for Transport Block Size (TBS) determination.
@@ -363,9 +390,10 @@ double calculateNumberOfInformationBits(int N, double codeRate, int modulationOr
  * where n = [log2(Ninfo - 24)] - 5
  *
  * @param Ninfo Number of information bits calculated.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return The NinfoPrime value for TBS determination.
  */
-int calculateNinfoPrime(double Ninfo);
+int calculateNinfoPrime(double Ninfo, bool logging=false);
 
 /**
  * @brief Find the TBS size for a given NinfoPrime using a predefined TBS table.
@@ -374,18 +402,20 @@ int calculateNinfoPrime(double Ninfo);
  * than or equal to NinfoPrime. It returns the TBS value corresponding to that entry.
  *
  * @param NinfoPrime Calculated NinfoPrime value.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return The TBS size that meets or exceeds NinfoPrime.
  */
-int findTBSForNinfoPrime(int NinfoPrime);
+int findTBSForNinfoPrime(int NinfoPrime, bool logging=false);
 
 /**
  * @brief Calculate the TBS size when Ninfo > 3824 using specified conditions.
  *
  * @param NinfoPrime Calculated NinfoPrime value.
  * @param codeRate Code rate, provided as per 1024 units (e.g., 711 for a code rate of 711/1024).
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return The TBS size calculated based on the given conditions.
  */
-int calculateTBS(int NinfoPrime, int codeRate);
+int calculateTBS(int NinfoPrime, int codeRate, bool logging=false);
 
 /**
  * @brief Calculate total bits per PRB for multiple layers.
@@ -395,9 +425,10 @@ int calculateTBS(int NinfoPrime, int codeRate);
  *
  * @param numLayers The number of layers.
  * @param tbsSize The TBS size used for each layer.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Total bits per PRB across all layers.
  */
-int calculateTotalBitsPerPrb(int numLayers, int tbsSize);
+int calculateTotalBitsPerPrb(int numLayers, int tbsSize, bool logging=false);
 
 /**
  * @brief Calculate the total number of Physical Resource Blocks (PRBs) available.
@@ -409,9 +440,10 @@ int calculateTotalBitsPerPrb(int numLayers, int tbsSize);
  *
  * @param prbCount Total number of PRBs initially available.
  * @param downlinkOH Downlink overhead as a fraction of total PRBs (default is 0.18 for 18% overhead).
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Total number of PRBs available after accounting for overhead.
  */
-int calculateTotalPRBsAvailable(int prbCount, double downlinkOH = 0.18);
+int calculateTotalPRBsAvailable(int prbCount, double downlinkOH = 0.18, bool logging=false);
 
 /**
  * @brief Calculate the total number of bits per slot.
@@ -421,9 +453,10 @@ int calculateTotalPRBsAvailable(int prbCount, double downlinkOH = 0.18);
  *
  * @param bitsPerPRB Number of bits per PRB.
  * @param totalPRBAvailable Total number of PRBs available.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Total number of bits per slot.
  */
-int calculateBitsPerSlot(int bitsPerPRB, int totalPRBAvailable);
+int calculateBitsPerSlot(int bitsPerPRB, int totalPRBAvailable, bool logging=false);
 
 /**
  * @brief Calculate Downlink Application Throughput.
@@ -437,17 +470,19 @@ int calculateBitsPerSlot(int bitsPerPRB, int totalPRBAvailable);
  * @param slotTime Duration of a slot in seconds.
  * @param appPacketSize Application layer packet size in bits.
  * @param macPacketSize MAC layer packet size in bits.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Downlink Application Throughput in bits per second.
  */
-double calculateDLApplicationThroughput(int bitsPerSlot, double dlFraction, double slotTime, int appPacketSize, int macPacketSize);
+double calculateDLApplicationThroughput(int bitsPerSlot, double dlFraction, double slotTime, int appPacketSize, int macPacketSize, bool logging=false);
 
 /**
  * @brief Parse a DL:UL ratio string and compute the DL fraction.
  *
  * @param ratioStr The DL:UL ratio as a string, e.g., "4:1".
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return The DL fraction as a double.
  */
-double calculateDLFraction(const std::string& ratioStr);
+double calculateDLFraction(const std::string& ratioStr, bool logging=false);
 
 /**
  * @brief Calculate the 5G path loss based on the given parameters, using LOS path loss as baseline for NLOS comparison.
@@ -460,9 +495,10 @@ double calculateDLFraction(const std::string& ratioStr);
  * @param buildingHeight Height of the building in meters (for NLOS scenarios).
  * @param streetWidth Width of the street in meters (for NLOS scenarios).
  * @param isLOS Boolean indicating if the scenario is Line of Sight.
+ * @param logging Boolean flag to enable or disable logging functionality
  * @return Calculated path loss in dB.
  */
-double calculate5GPathLoss(double gNBAntennaHeight, double ueHeight, double fLow, double fHigh, double distance2D, 
-                           double buildingHeight, double streetWidth, bool isLOS);
+double calculate5GPathLossRural(double gNBAntennaHeight, double ueHeight, double fLow, double fHigh, double distance2D, 
+                           double buildingHeight, double streetWidth, bool isLOS, bool logging=false);
                            
 #endif // UTILITIES_H

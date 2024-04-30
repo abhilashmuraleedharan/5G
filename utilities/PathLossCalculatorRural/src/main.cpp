@@ -87,7 +87,7 @@ int main() {
             return 1;
     }
 
-    double pathLoss = calculate5GPathLoss(gNBAntennaHeight, ueHeight, fLow, fHigh, distance2D,
+    double pathLoss = calculate5GPathLossRural(gNBAntennaHeight, ueHeight, fLow, fHigh, distance2D,
                                           buildingHeight, streetWidth, isLOS);
     std::cout << "Calculated Path Loss: " << pathLoss << " dB" << std::endl;
 
