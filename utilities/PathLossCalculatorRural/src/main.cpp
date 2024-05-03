@@ -5,8 +5,8 @@ int main() {
     // Example usage:
     double gNBAntennaHeight; // in meters
     double ueHeight;         // in meters
-    double fLow;             // in Hz
-    double fHigh;            // in Hz
+    double fLow;             // in MHz
+    double fHigh;            // in MHz
     double distance2D;       // in meters
     double buildingHeight;   // in meters
     double streetWidth;      // in meters
