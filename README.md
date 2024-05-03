@@ -4,7 +4,7 @@ Welcome to the 5G Utilities repository, your comprehensive toolkit for the analy
 
 ## Origin
 
-This repository is inspired by the extensive hands-on experiments with 5G RAN in the NetSim simulator, conducted as part of the PG Level Advanced Certification in 5G Technologies course offered by IISc in association with Telent Sprint. This experience highlighted a clear need for streamlined, accessible tools to handle the frequent and complex calculations involved in 5G technology.
+This repository is inspired by the extensive hands-on experiments with 5G RAN in the NetSim simulator, conducted as part of the PG Level Advanced Certification Program in 5G Technologies offered by IISc Bangalore in association with Talent Sprint. This experience highlighted a clear need for streamlined, accessible tools to handle the frequent and complex calculations involved in 5G technology.
 
 ## Purpose
 
