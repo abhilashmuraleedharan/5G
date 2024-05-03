@@ -138,4 +138,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 If you have any questions or feedback, please file an issue in this repository or contact me directly at `abhilashmuraleedharan@outlook.com`.
 
-Enjoy the utilities, and happy coding!
+Enjoy the utilities, and happy calculating!
