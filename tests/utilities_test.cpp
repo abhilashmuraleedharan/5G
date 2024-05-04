@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 // Test case for calculateWavelength
-TEST(WavelengthCalculation, PositiveFrequency) {
+TEST(UtilityTests, PositiveFrequency) {
     // Speed of light constant (in meters per second)
     constexpr double SPEED_OF_LIGHT = 299792458.0;
 
@@ -12,7 +12,7 @@ TEST(WavelengthCalculation, PositiveFrequency) {
     ASSERT_NEAR(expectedWavelength, calculateWavelength(frequency), 0.001); // Assert near with a small epsilon
 }
 
-TEST(WavelengthCalculation, ZeroFrequency) {
+TEST(UtilityTests, ZeroFrequency) {
     // Test with zero frequency, should handle gracefully
     ASSERT_EQ(0.0, calculateWavelength(0)); // Expect zero as error code
 }
