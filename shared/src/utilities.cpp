@@ -251,14 +251,13 @@ std::pair<int, double> determineIntermediateSpectralEfficiency(double spectralEf
 
     // Initialize to the lowest CQI if all else fails
     int closestCQI = 0;
-    double minDiff = std::numeric_limits<double>::max();
 
     // Find the closest CQI entry
     for (const auto& entry : cqiTable) {
-        double diff = std::fabs(entry.intermediateSpectralEfficiency - spectralEfficiency);
-        if (diff < minDiff) {
-            minDiff = diff;
+        if (entry.intermediateSpectralEfficiency <= spectralEfficiency) {
             closestCQI = entry.index;
+        } else { 
+            break; // Since CQI table is sorted, we can break the loop once we pass spectralEfficiency
         }
     }
 
@@ -303,16 +302,15 @@ std::pair<int, double> determineModulationAndCodeRate(double spectralEfficiency,
         {27, 8, "Modulation_256_QAM", 948,   7.4063}
     };
 
-    // Initialize to the lowest CQI if all else fails
+    // Initialize to the lowest MCS if all else fails
     int closestMcsIndex = 0;
-    double minDiff = std::numeric_limits<double>::max();
 
     // Find the closest MCS entry
     for (const auto& entry : mcsTable) {
-        double diff = std::fabs(entry.maxSpectralEfficiency - spectralEfficiency);
-        if (diff < minDiff) {
-            minDiff = diff;
+        if (entry.maxSpectralEfficiency <= spectralEfficiency) {
             closestMcsIndex = entry.index;
+        } else {
+            break; // Since MCS table is sorted, we can break the loop once we pass spectralEfficiency
         }
     }
 

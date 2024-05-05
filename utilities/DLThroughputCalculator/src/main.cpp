@@ -81,7 +81,7 @@ int main() {
         std::cerr << "Error: Please enter a positive number for pathLoss." << std::endl;
         return 1;
     } else {
-        std::cout << "Path Loss to use for calculation is " << pathLoss << " dB\n" << std::endl;
+        std::cout << "Path Loss to use for calculation is " << pathLoss << " dB" << std::endl;
     }
 
     std::cout << "\nEnter PRB Count set in gNB: " << std::endl;
