@@ -37,9 +37,7 @@ double calculateShannonsCapacity(double bandwidth, double snr, bool logging) {
 }
 
 double calculateOFDMSymbolDuration(double scs, bool useExtendedCP, bool logging) {
-    // The OFDM symbol duration depends on slot size and
-    // 1 Hz is the unit for SCS, which translates to 1 second. 
-    // Since we want the duration in microseconds, we multiply by 1e6.
+
     if (scs <= 0) {
         if (logging)
             std::cerr << "SCS must be greater than 0 KHz" << std::endl;
