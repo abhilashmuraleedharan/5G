@@ -36,17 +36,22 @@ double calculateShannonsCapacity(double bandwidth, double snr, bool logging) {
     return bandwidth * log2(1 + snr);
 }
 
-double calculateOFDMSymbolDuration(double scs, bool logging) {
-    // The OFDM symbol duration is the inverse of the subcarrier spacing.
+double calculateOFDMSymbolDuration(double scs, bool useExtendedCP, bool logging) {
+    // The OFDM symbol duration depends on slot size and
     // 1 Hz is the unit for SCS, which translates to 1 second. 
     // Since we want the duration in microseconds, we multiply by 1e6.
     if (scs <= 0) {
         if (logging)
-            std::cerr << "SCS must be greater than 0 Hz" << std::endl;
+            std::cerr << "SCS must be greater than 0 KHz" << std::endl;
         return 0.0;  // Return zero as an error indicator for invalid inputs
     }
 
-    return 1.0 / scs * 1e6; // Convert seconds to microseconds
+    int numerology = getNumerology(scs);
+    int numOfSymbolsPerSlot = ((numerology == 2) && useExtendedCP) ? 12 : 14; // since extended CP is applicable only for n=2
+
+    double ofdmSymbolDuration = (1.0 / (numOfSymbolsPerSlot * std::pow(2, numerology)));
+
+    return ofdmSymbolDuration;
 }
 
 int calculateNumberOfSubcarriers(double bandwidth, double scs, bool logging) {
@@ -168,6 +173,23 @@ void QamModulationSchemeDescriptor(int M, double& b, double& sf, bool logging) {
 
     b = std::log2(M); // Calculate bits per symbol
     sf = 2.0 / 3.0 * (M - 1); // Calculate the scaling factor
+}
+
+int getNumerology(int scs) {
+    switch (scs) {
+        case 15:
+            return 0;
+        case 30:
+            return 1;
+        case 60:
+            return 2;
+        case 120:
+            return 3;
+        case 240:
+            return 4;
+        default:
+            throw std::invalid_argument("Unsupported SCS value");
+    }
 }
 
 double calculateLargeScaleTotalLoss(double pathLoss, double shadowingLoss, double o2iLoss, bool logging) {

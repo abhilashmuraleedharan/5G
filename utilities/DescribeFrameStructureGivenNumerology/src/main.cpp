@@ -17,11 +17,11 @@ int main() {
     double scs = calculateSCS(n);
     
     // Calculate the symbol duration
-    double symbolDuration = calculateOFDMSymbolDuration(scs * 1000); // convert scs value to Hz from kHz before passing
+    double symbolDuration = calculateOFDMSymbolDuration(scs, false);
 
     // Display the results
     std::cout << std::fixed << std::setprecision(6);
-    std::cout << "Symbol duration: " << symbolDuration << " microseconds" << std::endl;
+    std::cout << "Symbol duration: " << symbolDuration << " milliseconds" << std::endl;
     std::cout << "Slot size: " << slotSize << " milliseconds" << std::endl;
     std::cout << "Number of slots per subframe: " << numberOfSlots << std::endl;
     std::cout << "SCS: " << scs << " kHz" << std::endl;

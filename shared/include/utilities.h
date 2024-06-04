@@ -58,11 +58,12 @@ double calculateShannonsCapacity(double bandwidth, double snr, bool logging=fals
  * calculates the Orthogonal Frequency-Division Multiplexing (OFDM)
  * symbol duration in microseconds.
  *
- * @param scs Subcarrier spacing in Hz.
+ * @param scs Subcarrier spacing in kHz.
+ * @param useExtendedCP Flag to indicate whether extended CP needs to be considered or not
  * @param logging Boolean flag to enable or disable logging functionality
- * @return OFDM symbol duration in microseconds.
+ * @return OFDM symbol duration in milliseconds.
  */
-double calculateOFDMSymbolDuration(double scs, bool logging=false);
+double calculateOFDMSymbolDuration(double scs, bool useExtendedCP, bool logging=false);
 
 /**
  * @brief Calculate the number of subcarriers (Nsc).
@@ -171,6 +172,22 @@ double calculateSCS(int n, bool logging=false);
  * @param logging Boolean flag to enable or disable logging functionality
  */
 void QamModulationSchemeDescriptor(int M, double& b, double& sf, bool logging=false);
+
+/**
+ * @brief Determines the numerology given a Subcarrier Spacing (SCS).
+ *
+ * Numerology is determined based on the SCS according to the 3GPP standard for 5G NR.
+ * - Numerology 0 corresponds to 15 kHz
+ * - Numerology 1 corresponds to 30 kHz
+ * - Numerology 2 corresponds to 60 kHz
+ * - Numerology 3 corresponds to 120 kHz
+ * - Numerology 4 corresponds to 240 kHz
+ *
+ * @param scs Subcarrier Spacing in Hz.
+ * @return int Numerology associated with the given SCS.
+ * @throws std::invalid_argument if SCS is not recognized.
+ */
+int getNumerology(int scs);
 
 /**
  * @brief Calculate the total large-scale loss in dB.
