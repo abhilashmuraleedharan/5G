@@ -30,6 +30,7 @@ add_executable(ConvertDbmToWatts utilities/ConvertDbmToWatts/src/main.cpp shared
 add_executable(ConvertWattsToDbm utilities/ConvertWattsToDbm/src/main.cpp shared/src/utilities.cpp)
 add_executable(CalculateSpectralEfficiency utilities/CalculateSpectralEfficiency/src/main.cpp shared/src/utilities.cpp)
 add_executable(GetModulationOrderAndCodeRate utilities/GetModulationOrderAndCodeRate/src/main.cpp shared/src/utilities.cpp)
+add_executable(CalculateInformationBitsPerTTISlot utilities/CalculateInformationBitsPerTTISlot/src/main.cpp shared/src/utilities.cpp)
 
 # Enable testing with Google Test
 enable_testing()

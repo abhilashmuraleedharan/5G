@@ -21,7 +21,6 @@ int main() {
     int numerology = 3;
     int prbPerUE = 1;  // set as 1 to calculate the minimum throughput that a UE can expect 
                        // when it is given the minimal resource allocation.
-    int numOfSCsPerRB = 12;
     int numOfSymbolsPerSlot = 14;
     int numOfREsForDM_RS = 0;
     int numOfOverHeadREs = 0;

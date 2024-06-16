@@ -336,11 +336,56 @@ std::pair<int, double> determineModulationAndCodeRate(double spectralEfficiency,
 
     // Fetch the values from the specified index
     int modulationOrder = mcsTable[closestMcsIndex].modulationOrder;
-    int mcsCodeRate = mcsTable[closestMcsIndex].mcsCodeRate;
+    double mcsCodeRate = mcsTable[closestMcsIndex].mcsCodeRate;
 
     // Return them as a pair
     return std::make_pair(modulationOrder, mcsCodeRate);
 
+}
+
+std::pair<int, double> determineModulationAndCodeRateUsingMcsIndex(int mcsIdx, bool logging) {
+    // Define the MCS table
+    std::vector<MCSEntry> mcsTable = {
+        {0,  2, "Modulation_QPSK",    120,   0.2344},
+        {1,  2, "Modulation_QPSK",    193,   0.3770},
+        {2,  2, "Modulation_QPSK",    308,   0.6016},
+        {3,  2, "Modulation_QPSK",    449,   0.8770},
+        {4,  2, "Modulation_QPSK",    602,   1.1758},
+        {5,  4, "Modulation_16_QAM",  378,   1.4766},
+        {6,  4, "Modulation_16_QAM",  434,   1.6953},
+        {7,  4, "Modulation_16_QAM",  490,   1.9141},
+        {8,  4, "Modulation_16_QAM",  553,   2.1602},
+        {9,  4, "Modulation_16_QAM",  616,   2.4063},
+        {10, 4, "Modulation_16_QAM",  658,   2.5703},
+        {11, 6, "Modulation_64_QAM",  466,   2.7305},
+        {12, 6, "Modulation_64_QAM",  517,   3.0293},
+        {13, 6, "Modulation_64_QAM",  567,   3.3223},
+        {14, 6, "Modulation_64_QAM",  616,   3.6094},
+        {15, 6, "Modulation_64_QAM",  666,   3.9023},
+        {16, 6, "Modulation_64_QAM",  719,   4.2129},
+        {17, 6, "Modulation_64_QAM",  772,   4.5234},
+        {18, 6, "Modulation_64_QAM",  822,   4.8164},
+        {19, 6, "Modulation_64_QAM",  873,   5.1152},
+        {20, 8, "Modulation_256_QAM", 682.5, 5.3320},
+        {21, 8, "Modulation_256_QAM", 711,   5.5547},
+        {22, 8, "Modulation_256_QAM", 754,   5.8906},
+        {23, 8, "Modulation_256_QAM", 797,   6.2266},
+        {24, 8, "Modulation_256_QAM", 841,   6.5703},
+        {25, 8, "Modulation_256_QAM", 885,   6.9141},
+        {26, 8, "Modulation_256_QAM", 916.5, 7.1602},
+        {27, 8, "Modulation_256_QAM", 948,   7.4063}
+    };
+
+    if (mcsIdx < 0 || mcsIdx > 27) {
+        throw std::runtime_error("Invalid MCS index");
+    }
+
+    // Fetch the values from the specified index
+    int modulationOrder = mcsTable[mcsIdx].modulationOrder;
+    double mcsCodeRate = mcsTable[mcsIdx].mcsCodeRate;
+
+    // Return them as a pair
+    return std::make_pair(modulationOrder, mcsCodeRate);
 }
 
 int calculateAvailableREs(int numberOfSubcarriers, int numberOfSymbols, int numberOfREsForDMRS, int overheadFromHigherLayer, bool logging) {

@@ -19,6 +19,7 @@
 // Constants
 const double pi = 3.14159265358979323846;
 const double speedOfLight = 3e8; // Speed of light in meters/second
+const int numOfSCsPerRB = 12;
 
 /**
  * Calculates the wavelength of a signal given its frequency.
@@ -347,6 +348,15 @@ struct MCSEntry {
  * @return A pair containing Modulation Order (Qm) and MCS Code Rate (R).
  */
 std::pair<int, double> determineModulationAndCodeRate(double spectralEfficiency, bool logging=false);
+
+/**
+ * @brief Determine Modulation Order (Qm) and MCS Code Rate (R) from the MCS table.
+ *
+ * @param mcsIdx MCS index value in the MCS table
+ * @param logging Boolean flag to enable or disable logging functionality
+ * @return A pair containing Modulation Order (Qm) and MCS Code Rate (R).
+ */
+std::pair<int, double> determineModulationAndCodeRateUsingMcsIndex(int mcsIdx, bool logging=false);
 
 /**
  * @brief Calculate the number of REs available for data transfer in a Resource Block.
