@@ -11,6 +11,7 @@ int main() {
     int dlInfoSymbolsPerSC;
     int numOfREsForDM_RS = 0;
     int numOfOverHeadREs = 0;
+    int prbCount = 1;
 
     std::cout << "Enter the number of PRBs allotted to the UE" << std::endl;
     std::cin >> prbPerUE;
@@ -34,7 +35,25 @@ int main() {
 
     double nInfo = accomadatableREs * cqiResult.first * (cqiResult.second/1024);
     std::cout << std::fixed << std::setprecision(6); // Set precision as needed
-    std::cout << "Information bits per TTI Slot: " << nInfo << std::endl;
+    std::cout << "nInfo: " << nInfo << std::endl;
+    
+    int tbsSize = 0;
+    if (nInfo <= 3824) {
+        std::cout << "nInfo is less than or equal to 3824" << std::endl;
+        std::cout << "Calculating nInfoPrime..." << std::endl;
+        int nInfoPrime = calculateNinfoPrime(nInfo);
+        std::cout << "nInfoPrime: " << nInfoPrime << std::endl;
+        std::cout << "Find the TBS size for the calculated NinfoPrime using the TBS Calculation table..." << std::endl;
+        tbsSize = findTBSForNinfoPrime(nInfoPrime);
+    } else {
+        std::cout << "nInfo is greater than 3824" << std::endl;
+        std::cout << "Calculating nInfoPrime..." << std::endl;
+        int nInfoPrime = calculateNinfoPrime(nInfo);
+        std::cout << "nInfoPrime: " << nInfoPrime << std::endl;
+        std::cout << "Calculate the TBS size when Ninfo > 3824 using specified conditions..." << std::endl;
+        tbsSize = calculateTBS(nInfoPrime, cqiResult.second);
+    }
+    std::cout << "TBS Size: " << tbsSize << std::endl;
 
     return 0;
 }

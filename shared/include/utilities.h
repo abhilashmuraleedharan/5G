@@ -15,11 +15,7 @@
 #include <string>
 #include <sstream> // For string stream operations
 #include <iostream>
-
-// Constants
-const double pi = 3.14159265358979323846;
-const double speedOfLight = 3e8; // Speed of light in meters/second
-const int numOfSCsPerRB = 12;
+#include "constants.h"
 
 /**
  * Calculates the wavelength of a signal given its frequency.
@@ -304,16 +300,6 @@ double calculateSNRLinear(double rxPower_dBm, double thermalNoisePower_Watts, bo
 double calculateSpectralEfficiencyPerLayer(double snrLinear, bool logging=false);
 
 /**
- * @brief Define a structure to hold CQI table entries.
- */
-struct CQIEntry {
-    int index;
-    const char* modulation;
-    int codeRate;
-    double intermediateSpectralEfficiency; // Expressed as bits/s/Hz
-};
-
-/**
  * @brief Calculate the intermediate spectral efficiency by referring CQI table.
  *
  * This function maps a given spectral efficiency to the closest CQI index in the CQI Table.
@@ -325,17 +311,6 @@ struct CQIEntry {
  * @return A pair containing CQI Index and intermediate spectral efficiency in bits/second/Hz.
  */
 std::pair<int, double> determineIntermediateSpectralEfficiency(double spectralEfficiency, bool logging=false);
-
-/**
- * @brief Define a structure to hold MCS table entries.
- */
-struct MCSEntry {
-    int index;
-    int modulationOrder; // Qm
-    const char* modulationScheme;
-    double mcsCodeRate; // R
-    double maxSpectralEfficiency; // Maximum spectral efficiency supported
-};
 
 /**
  * @brief Determine Modulation Order (Qm) and MCS Code Rate (R) from the MCS table.
