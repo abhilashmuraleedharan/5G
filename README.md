@@ -38,7 +38,7 @@ The project is organized into following directories:
 Each utility within the `/utilities/` directory is structured as follows:
 
 ```
-/utilities/WavelengthCalculator/
+/utilities/DLThroughputCalculator/
     ├── src/
     │   └── main.cpp
     └── include/
@@ -90,10 +90,10 @@ This will generate the executable files for all utilities and place them inside 
 After building, you can run the utilities from within the `build` directory. For example:
 
 ```bash
-./WavelengthCalculator
+./DLThroughputCalculator
 ```
 
-Replace `WavelengthCalculator` with the name of the utility you want to run.
+Replace `DLThroughputCalculator` with the name of the utility you want to run.
 
 ### Running Automated Tests
 
